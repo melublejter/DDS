@@ -1,5 +1,5 @@
-class Cliente extends TipoCliente {
-		var _datosLegales: String; 
+class Cliente(dLegales : String) extends TipoCliente {
+		var _datosLegales: String = dLegales;
 		
 		def dtoTipoPers(precioBase:Float):Double = 0
 		

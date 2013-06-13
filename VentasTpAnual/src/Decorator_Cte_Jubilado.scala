@@ -1,7 +1,7 @@
-class Decorator_Cte_Jubilado extends TipoCliente {
-		var decorado:TipoCliente
+class Decorator_Cte_Jubilado(unDecorado:TipoCliente) extends TipoCliente {
+		var decorado:TipoCliente= unDecorado
 		
-		def dtoTipoPersona(precioBase:Float):Double = decorado.dtoTipoPers(precioBase) + precioBase * 0.85
+		def dtoTipoPersona(precioBase:Double):Double = decorado.dtoTipoPers(precioBase) + precioBase * 0.85
 
 		
 		def datosLegales()= decorado.datosLegales;

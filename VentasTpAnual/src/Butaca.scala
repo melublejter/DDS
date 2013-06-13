@@ -1,11 +1,11 @@
-class Butaca {
+class Butaca(unSector : Sector, unaFila:Fila,unId:Int) {
 
-		var sector : Sector;
-		var fila : Fila;
-		var id: Int;
+		var sector : Sector = unSector;
+		var fila : Fila = unaFila;
+		var id: Int = unId;
 		
-		def precioBase(): Float{
-		  
+		def precioBase(): Double ={
+		  return sector.precioBase + fila.precioBase;
 		  
 		}
 }

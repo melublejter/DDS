@@ -1,4 +1,4 @@
 trait TipoCliente {
-		def dtoTipoPers(precioBase:Float):Double
+		def dtoTipoPers(precioBase:Double):Double
 		def datosLegales():String
 }
