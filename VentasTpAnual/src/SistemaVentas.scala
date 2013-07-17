@@ -15,7 +15,7 @@ object SistemaVentas {
    ent.noche = unaNoche;
    ent.cliente = unCliente;
    ent.nroFactura = ultNroFact;
-   ent.precioDeVenta = this.precioFinal(unaButaca, unaNoche, unCliente);
+   ent.precioDeVenta = this.precioFinal(ent);
    
    return ent;
  }
@@ -37,12 +37,12 @@ object SistemaVentas {
 		 } 
   }
  
- def precioFinal(butaca: Butaca, noche: Noche, cliente: Cliente): Double = {
-   var valorEntradaBase = butaca.precioBase();
-   var valorExtraPorNoche = noche.valorExtra();
-   var descuentoTipoPersona = cliente.dtoTipoPers(valorEntradaBase);
+ def precioFinal(entrada: Entrada): Double = {
+   var valorEntradaBase = entrada.butaca.precioBase();
+   var valorExtraPorNoche = entrada.noche.valorExtra();
+   var descuentoTipoPersona = entrada.cliente.dtoTipoPers(valorEntradaBase);
    var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona
-   var dtoAnticipada = this.calcularDescuentoAnticipa(precio, noche);
+   var dtoAnticipada = this.calcularDescuentoAnticipa(precio, entrada.noche);
    
    return  precio - dtoAnticipada;
     
