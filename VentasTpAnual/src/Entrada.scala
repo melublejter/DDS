@@ -1,48 +1,42 @@
 import java.util.Date
 
-class Entrada(unCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca, unNroFactura: Int) {
+class Entrada() {
 
-	var cliente: TipoCliente = unCliente;
-	var noche: Noche = unaNoche;
-	var butaca: Butaca = unaButaca;
-	var nroFactura : Int = unNroFactura
-	var porcDtoAnt: Double = 0;
+	var cliente: Cliente;
+	var noche: Noche;
+	var butaca: Butaca;
+	var nroFactura : Int;
+	var precioDeVenta: Double;
 	var fechaCompra: Date = new Date();
+	var devuelta: Boolean = false;
 	
 	
-  def precioFinal():Double = {
-   var valorEntradaBase = butaca.precioBase();
-   var valorExtraPorNoche = noche.valorExtra();
-   var descuentoTipoPersona = cliente.dtoTipoPers(valorEntradaBase);
-   var dtoAnticipada = this.calcularDescuentoAnticipa();
-    return valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona - dtoAnticipada;
-    
-  }
+
   
-  def comprar():Void = {
-    noche.butacasLibres.remove(butaca);
-    noche.butacasOcupadas.add(butaca);
-    sistema.entradasVendidas.add(this);
+  def comprar() : Boolean = {
+    if  (SistemaVentas.entradasVendidas.==(this)){return false;}
+    noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
+    SistemaVentas.entradasVendidas.+:(this);
     this.imprimir();
+    
+    return true;
   }
   
-  def calcularDescuentoAnticipa():Double = {
-		 if (SistemaVentas.date.after(fechaCompra)) {
-		   porcDtoAnt = SistemaVentas.porcentajeDtoAnticipada;
-		   return this.precioFinal() * porcDtoAnt;
-		 }
-		 else{
-		   porcDtoAnt = 0.0;
-		   return 0;
-		 } 
-  }
-  
-  	def imprimir() = {
+  def imprimir(){
+  	  printf("imprimo");
 	  /*envia imprimir a la impresora fiscal*/
   }
-  	def devolver() ={
-  	  /*Devolver entrada*/
+  	
+  	
+  	def devolver(): Double ={
+  	  if (devuelta) {return -1;}
+  	  if  (SistemaVentas.entradasVendidas.!=(this)){return -2;}
+  	  var hoy = new Date();
+  	  if ((noche.fecha.getDate() -hoy.getDate()) > 10 ){return -3;}
   	  
+  	  noche.butacasLibres=noche.butacasLibres.+:(butaca);
+  	  devuelta=true;
+  	  return precioDeVenta.*(0.5);
   	}
 		  
 }
