@@ -1,11 +1,11 @@
 import java.util.Date
-class Noche(unaFecha:Date,unaHora:Int) {
-	var fecha: Date;
-	var horaInicio: Int
-	var bandas: List[Banda];
+class Noche(unaFecha:Date,unaHora:Int, unId :Int) {
+	var fecha: Date = unaFecha;
+	var horaInicio: Int = unaHora;
+	var bandas: List[Banda] = List.empty[Banda];
 	var butacasLibres: List[Butaca] = List.empty[Butaca];
 	var butacasOcupadas: List[Butaca] = List.empty[Butaca];
-	var id: Int;
+	var id: Int  = unId;
 	
 	
 	def valorExtra():Double = {

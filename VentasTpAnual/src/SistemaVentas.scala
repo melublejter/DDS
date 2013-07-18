@@ -41,7 +41,7 @@ object SistemaVentas {
    var valorEntradaBase = entrada.butaca.precioBase();
    var valorExtraPorNoche = entrada.noche.valorExtra();
    var descuentoTipoPersona = entrada.cliente.dtoTipoPers(valorEntradaBase);
-   var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona
+   var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona;
    var dtoAnticipada = this.calcularDescuentoAnticipa(precio, entrada.noche);
    
    return  precio - dtoAnticipada;

@@ -1,8 +1,7 @@
-class Cliente(dLegales : String) extends TipoCliente {
-		var _datosLegales: String = dLegales;
+abstract class Cliente(){
+	var _datosLegales: String;
+
 		
-		def dtoTipoPers(precioBase:Float):Double = 0
-		
-		
-		def datosLegales = _datosLegales;
+def dtoTipoPers(valorBase: Double): Double = 0;
+
 }
