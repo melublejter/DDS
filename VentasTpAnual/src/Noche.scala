@@ -1,7 +1,8 @@
 import java.util.Date
-class Noche(unaFecha:Date,unaHora:Int, unId :Int) {
+import java.sql.Timestamp
+class Noche(unaFecha:Date,unaHora:Timestamp, unId :Int) {
 	var fecha: Date = unaFecha;
-	var horaInicio: Int = unaHora;
+	var horaInicio: Timestamp = unaHora;
 	var bandas: List[Banda] = List.empty[Banda];
 	var butacasLibres: List[Butaca] = List.empty[Butaca];
 	var butacasOcupadas: List[Butaca] = List.empty[Butaca];
