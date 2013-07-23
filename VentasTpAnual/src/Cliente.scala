@@ -2,6 +2,6 @@ abstract class Cliente(){
 	var _datosLegales: String;
 
 		
-def dtoTipoPers(valorBase: Double): Double = 0;
+def dtoTipoPersona(valorBase: Double): Double=0;
 
-}
+}                                                                                                                                                                     

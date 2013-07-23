@@ -1,15 +1,23 @@
 import java.util.Date
+import java.text.DateFormat
+import java.util.GregorianCalendar
+import java.util.Calendar
 
 object SistemaVentas {
 	var noches: List[Noche] = List.empty[Noche];
 	var entradasVendidas: List[Entrada] = List.empty[Entrada];
-	var diasMinDescuentoAnticipada = 0;
-	var porcentajeDescuentoAnticipada = 0;
+	var diasMinDescuentoAnticipada: Int = 30;
+	var porcentajeDescuentoAnticipada:Double = 0.10;
 
 	
 	
  def crearEntrada(unCliente: Cliente, unaNoche: Noche, unaButaca: Butaca): Entrada = {
-   var ultNroFact = entradasVendidas.last.nroFactura + 1
+
+   var ultNroFact:Int=0;
+   if(entradasVendidas.size==0)
+	   ultNroFact=1;
+   else	
+	   ultNroFact = entradasVendidas.last.nroFactura + 1
    var ent= new Entrada();
    ent.butaca=unaButaca;
    ent.noche = unaNoche;
@@ -29,23 +37,77 @@ object SistemaVentas {
   
  def calcularDescuentoAnticipa(precio: Double, noche: Noche): Double = {
    var hoy = new Date();
-		 if (noche.fecha.getDate().-(hoy.getDate()) > diasMinDescuentoAnticipada) {
-		   return precio.*(porcentajeDescuentoAnticipada);
+   var diffInDays =  diferenciasDeFechas(noche.fecha, hoy);
+   
+   	println("diferencia de dias con la fecha=" + diffInDays );
+		 if (diffInDays > diasMinDescuentoAnticipada) {
+		   return precio*porcentajeDescuentoAnticipada;
 		 }
 		 else{
-		   return 0;
-		 } 
+		   return 0.0;
+		 }
+   return 0.0; 
   }
  
  def precioFinal(entrada: Entrada): Double = {
    var valorEntradaBase = entrada.butaca.precioBase();
    var valorExtraPorNoche = entrada.noche.valorExtra();
-   var descuentoTipoPersona = entrada.cliente.dtoTipoPers(valorEntradaBase);
+   var descuentoTipoPersona = entrada.cliente.dtoTipoPersona(valorEntradaBase);
    var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona;
    var dtoAnticipada = this.calcularDescuentoAnticipa(precio, entrada.noche);
    
    return  precio - dtoAnticipada;
     
   }
+ 
+ 
+ //Esta funcion no funciona bien, busque por internet y no funco ninguna.LUCAS
+ //FIXME
+  def diferenciasDeFechas(fechaInicial:Date, fechaFinal:Date):Int = {
+    var diff = new Date(fechaFinal.getTime() - fechaInicial.getTime());
 
+    var calendar = Calendar.getInstance();
+    calendar.setTime(diff);
+    var hours = calendar.get(Calendar.HOUR_OF_DAY);
+    var minutes = calendar.get(Calendar.MINUTE);
+    var seconds = calendar.get(Calendar.SECOND);
+    var days = calendar.get(Calendar.DAY_OF_MONTH);
+    return days
+
+    
+  }
+  
+  
+    
+    //final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+//		 var hoy = new Date(); //Fecha de hoy 
+//     
+//		  
+//		 var calendar = new GregorianCalendar(fechaInicial.getYear(), 
+//		     fechaInicial.getMonth()-1, fechaInicial.getDate()); 
+//		 var fecha = new java.sql.Date(calendar.getTimeInMillis());
+//		 
+//		 var diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
+//		 System.out.println(diferencia)
+//    
+    
+/*
+        var df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        var fechaInicioString = df.format(fechaInicial);
+
+        var fechaInicial2 = df.parse(fechaInicioString);
+        var fechaFinalString = df.format(fechaFinal);
+        var fechaFinal2 = df.parse(fechaFinalString);
+        
+
+        var fechaInicialMs = fechaInicial2.getTime();
+        var fechaFinalMs = fechaFinal2.getTime();
+        var diferencia = fechaFinalMs - fechaInicialMs;
+        var dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        return (dias.asInstanceOf[Int]);
+        * 
+        */
+//    }
+ 
+ 
 }
