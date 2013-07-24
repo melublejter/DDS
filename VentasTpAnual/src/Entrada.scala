@@ -1,5 +1,8 @@
 import java.util.Date
 import scala.collection.immutable.Nil
+import scala.reflect.internal.This
+import scala.reflect.internal.This
+import scala.util.control.Exception
 
 class Entrada() {
 
@@ -10,21 +13,21 @@ class Entrada() {
 	var precioDeVenta: Double=_;
 	var fechaCompra: Date = new Date();
 	var devuelta: Boolean = false;
-	
+	var tipoDePago: TipoDePago;
+	/*
+tipoDePago que tenga un objeto de una clase pagoEnEfectivos o de una clase pagoConTarjeta. 
+Que en el metodo comprar de la entrada llame a tipoDePago.comprar()
+*/
 	
 
   
   def comprar() : Boolean = {
-    //No tendria que ser un lista contiene entrada? en vez de un "=="?
-    //O tendria que sacarlo si lo verifico antes
-    if  (SistemaVentas.entradasVendidas.==(this)){
-      return false;
-      }
-    noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
-    SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
-    this.imprimir();
-    
-    return true;
+		if (tipoDePago.comprar(this)){
+			noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
+			SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
+			this.imprimir();
+			return true;
+		}
   }
   
   def imprimir(){
