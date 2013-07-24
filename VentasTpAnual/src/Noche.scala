@@ -18,5 +18,9 @@ class Noche(unaFecha:Date,unaHora:Int, unId :Int,
 			val categorias = bandas.map{unaBanda => unaBanda.categoria};
 			return categorias.maxBy{unaCategoria => unaCategoria.nivel};
 	}
+	
+	def cambiarCategoriaBanda(unNombreBanda:String, unId: Int, costoExtra: Int){
+	  
+	}
 
 }

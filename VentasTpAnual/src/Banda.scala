@@ -4,5 +4,8 @@ class Banda(unCategoria:Categoria,unNombre:String) {
 	
 	
 	def categoria = _categoria;
+	def categoria(unaCategoria: Categoria){
+			_categoria = unaCategoria
+	}
 
 }

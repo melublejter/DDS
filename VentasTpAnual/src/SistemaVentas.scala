@@ -9,6 +9,7 @@ object SistemaVentas {
 	var entradasVendidas: List[Entrada] = List.empty[Entrada];
 	var diasMinDescuentoAnticipada: Int = 30;
 	var porcentajeDescuentoAnticipada:Double = 0.10;
+	var bandas: List[Banda] = List.empty[Banda];
 
 	
 	
@@ -100,6 +101,17 @@ object SistemaVentas {
     return days
 
     
+  }
+  
+  //Función cambia la categoria de una banda de forma dinámica
+  def cambiarCategoriaBanda(nombreBanda: String, id: Int, costoExtra: Double){
+	 var bandaBuscada =	((bandas.filter(unaBanda=>unaBanda.nombre == nombreBanda)).head)
+	 bandaBuscada.categoria(new Categoria(id,costoExtra))
+	 
+  }
+  
+  def agregarBanda(unaBanda:Banda){
+     bandas = bandas.+:(unaBanda);
   }
   
   
