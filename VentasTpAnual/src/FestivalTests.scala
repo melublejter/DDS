@@ -29,10 +29,24 @@ class FestivalTests {
  	var butaca7_1C = new Butaca(sectorC,fila1,7);
  	var butaca8_2C = new Butaca(sectorC,fila2,8);
  	var butaca9_3C = new Butaca(sectorC,fila3,9);
+ 	var butaca10_3C = new Butaca(sectorC,fila3,10);
+ 	var butaca11_3C = new Butaca(sectorC,fila3,11);
+ 	var butaca12_3C = new Butaca(sectorC,fila3,12);
+ 	var butaca13_3C = new Butaca(sectorC,fila3,13);
+ 	var butaca14_3C = new Butaca(sectorC,fila3,14);
+ 	var butaca15_3C = new Butaca(sectorC,fila3,15);
+ 	var butaca16_3C = new Butaca(sectorC,fila3,16);
+ 	var butaca17_3C = new Butaca(sectorC,fila3,17);
+ 	var butaca18_3C = new Butaca(sectorC,fila3,18);
+ 	var butaca19_3C = new Butaca(sectorC,fila3,19);
+ 	var butaca20_3C = new Butaca(sectorC,fila3,20);
+ 	var butaca21_3C = new Butaca(sectorC,fila3,21);
  	
  	var todasLasButacas = List[Butaca](butaca1_1A,butaca2_2A, 
  	    butaca3_3A, butaca4_1B,butaca5_2B, butaca6_3B, butaca7_1C, 
- 	    butaca8_2C, butaca9_3C );
+ 	    butaca8_2C, butaca9_3C,butaca10_3C,butaca11_3C,butaca13_3C,butaca14_3C,
+ 	    butaca12_3C,butaca15_3C,butaca16_3C,butaca17_3C,butaca18_3C,
+ 	    butaca19_3C,butaca20_3C,butaca21_3C);
  	
  	
  	var categoria1 = new Categoria(1,00.0);
@@ -62,11 +76,11 @@ class FestivalTests {
 
   @Test
   def cantidadDeButacasLibresTodasLasNoches() {
-    assertEquals(noche1.butacasLibres.size, 9);
-    assertEquals(noche2.butacasLibres.size, 9);
-    assertEquals(noche3.butacasLibres.size, 9);
-    assertEquals(noche4.butacasLibres.size, 9);
-    assertEquals(noche5.butacasLibres.size, 9);
+    assertEquals(noche1.butacasLibres.size, 21);
+    assertEquals(noche2.butacasLibres.size, 21);
+    assertEquals(noche3.butacasLibres.size, 21);
+    assertEquals(noche4.butacasLibres.size, 21);
+    assertEquals(noche5.butacasLibres.size, 21);
   }
 
   @Test
@@ -169,14 +183,30 @@ class FestivalTests {
     var entradas = SistemaVentas.crearEntradas(carlos, pedidos);
     for(entrada <- entradas){
       entrada.comprar();
-      assertEquals(210.0, entrada.precioDeVenta, 0.0);
     }
+    var totales = entradas.map(entrada => entrada.precioDeVenta);
+    assertEquals(490.0, totales.sum, 0.0);
     
   }
   
   @Test
   def comprarComboDeEntradasCon10DeDescuento{
+	var pedido1 = new Pedido(noche1,butaca10_3C);
+    var pedido2 = new Pedido(noche1,butaca11_3C);
+    var pedido3 = new Pedido(noche1,butaca12_3C);
+    var pedido4 = new Pedido(noche1,butaca13_3C);
+    var pedido5 = new Pedido(noche1,butaca14_3C);
+    var pedido6 = new Pedido(noche1,butaca15_3C);
+    var pedido7 = new Pedido(noche1,butaca16_3C);
+    var pedidos = List[Pedido](pedido1,pedido2,pedido3
+        ,pedido4,pedido5,pedido6,pedido7);
     
+    var entradas = SistemaVentas.crearEntradas(carlos, pedidos);
+    for(entrada <- entradas){
+      entrada.comprar();
+    }
+    var totales = entradas.map(entrada => entrada.precioDeVenta);
+    assertEquals(1190.0 - 119, totales.sum, 0.0);
   }
   
   

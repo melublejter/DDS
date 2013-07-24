@@ -37,6 +37,7 @@ object SistemaVentas {
     for(pedido <- pedidos){
       var unaEntrada = crearEntrada(unCliente, pedido.noche, pedido.butaca);
       costoTotal= costoTotal + unaEntrada.precioDeVenta;
+      println("precio de entrada combo"+ unaEntrada.precioDeVenta);
       entradas=entradas.+:(unaEntrada);
     }
     
