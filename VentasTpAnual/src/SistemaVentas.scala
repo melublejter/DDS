@@ -13,21 +13,37 @@ object SistemaVentas {
 
 	
 	
- def crearEntrada(unCliente: Cliente, unaNoche: Noche, unaButaca: Butaca): Entrada = {
+// def crearEntrada(unCliente: Cliente, unaNoche: Noche, unaButaca: Butaca): Entrada = {
+//
+//   var ultNroFact:Int=0;
+//   if(entradasVendidas.size==0)
+//	   ultNroFact=1;
+//   else	
+//	   ultNroFact = entradasVendidas.last.nroFactura + 1
+//   var ent= new Entrada();
+//   ent.butaca=unaButaca;
+//   ent.noche = unaNoche;
+//   ent.cliente = unCliente;
+//   ent.nroFactura = ultNroFact;
+//   ent.precioDeVenta = this.precioFinal(ent);
+//   
+//   return ent;
+// }
+	
+def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 
-   var ultNroFact:Int=0;
-   if(entradasVendidas.size==0)
+    var ultNroFact:Int=0;
+	if(entradasVendidas.size==0)
 	   ultNroFact=1;
    else	
 	   ultNroFact = entradasVendidas.last.nroFactura + 1
-   var ent= new Entrada();
-   ent.butaca=unaButaca;
-   ent.noche = unaNoche;
-   ent.cliente = unCliente;
-   ent.nroFactura = ultNroFact;
-   ent.precioDeVenta = this.precioFinal(ent);
+   var entrada= unPedido.generarEntrada();
+   entrada.butaca=unPedido._butaca;
+   entrada.cliente = unCliente;
+   entrada.nroFactura = ultNroFact;
+   entrada.precioDeVenta = entrada.precioFinal();
    
-   return ent;
+   return entrada;
  }
  
   def crearEntradas(unCliente: Cliente,pedidos: List[Pedido]): List[Entrada] = {
@@ -36,9 +52,9 @@ object SistemaVentas {
 	var ultNroFact:Int=0;
 	
     for(pedido <- pedidos){
-      var unaEntrada = crearEntrada(unCliente, pedido.noche, pedido.butaca);
+      var unaEntrada = crearEntrada(unCliente, pedido);
       costoTotal= costoTotal + unaEntrada.precioDeVenta;
-      println("precio de entrada combo"+ unaEntrada.precioDeVenta);
+      //println("precio de entrada combo"+ unaEntrada.precioDeVenta);
       entradas=entradas.+:(unaEntrada);
     }
     
@@ -65,7 +81,7 @@ object SistemaVentas {
    var hoy = new Date();
    var diffInDays =  diferenciasDeFechas(noche.fecha, hoy);
    
-   	println("diferencia de dias con la fecha=" + diffInDays );
+   	//println("diferencia de dias con la fecha=" + diffInDays );
 		 if (diffInDays > diasMinDescuentoAnticipada) {
 		   return precio*porcentajeDescuentoAnticipada;
 		 }

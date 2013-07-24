@@ -1,3 +1,4 @@
+	
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -19,6 +20,9 @@ class FestivalTests {
  	var fila1 = new Fila(1,50.0);
  	var fila2 = new Fila(2,40.0);
  	var fila3 = new Fila(3,30.0);
+ 	
+ 	var pagoTarjeta = new PagoConTarjeta();
+ 	var pagoEfectivo = new PagoEnEfectivo();
  	
  	var butaca1_1A = new Butaca(sectorA,fila1,1);
  	var butaca2_2A = new Butaca(sectorA,fila2,2);
@@ -42,11 +46,23 @@ class FestivalTests {
  	var butaca20_3C = new Butaca(sectorC,fila3,20);
  	var butaca21_3C = new Butaca(sectorC,fila3,21);
  	
+ 	var butaca22_3C = new Butaca(sectorC,fila3,22);
+ 	var butaca23_3C = new Butaca(sectorC,fila3,23);
+ 	var butaca24_3C = new Butaca(sectorC,fila3,24);
+ 	var butaca25_3C = new Butaca(sectorC,fila3,25);
+ 	var butaca26_3C = new Butaca(sectorC,fila3,26);
+ 	var butaca27_3C = new Butaca(sectorC,fila3,27);
+ 	var butaca28_3C = new Butaca(sectorC,fila3,28);
+ 	var butaca29_3C = new Butaca(sectorC,fila3,29);
+ 	var butaca30_3C = new Butaca(sectorC,fila3,30);
+ 	
+ 	
  	var todasLasButacas = List[Butaca](butaca1_1A,butaca2_2A, 
  	    butaca3_3A, butaca4_1B,butaca5_2B, butaca6_3B, butaca7_1C, 
  	    butaca8_2C, butaca9_3C,butaca10_3C,butaca11_3C,butaca13_3C,butaca14_3C,
  	    butaca12_3C,butaca15_3C,butaca16_3C,butaca17_3C,butaca18_3C,
- 	    butaca19_3C,butaca20_3C,butaca21_3C);
+ 	    butaca19_3C,butaca20_3C,butaca21_3C,butaca22_3C,butaca23_3C,butaca24_3C,butaca25_3C,butaca26_3C,
+ 	    butaca27_3C,butaca28_3C,butaca29_3C,butaca30_3C);
  	
  	
  	var categoria1 = new Categoria(1,00.0);
@@ -62,11 +78,15 @@ class FestivalTests {
  	var losAutentiosDecadentes = new Banda(categoria3,"Los Autenticos Decadentes");
  	var rollingStone = new Banda(categoria4,"Los Rolling Stone");
  	
+ 	
+ 	
  	var noche1 = new Noche(new Date(2013,7,20),20,1,List[Banda](losPiojos),todasLasButacas);
  	var noche2 = new Noche(new Date(2013,7,21),20,2,List[Banda](arbol),todasLasButacas);
  	var noche3 = new Noche(new Date(2013,7,22),19,3,List[Banda](laVelaPuerca,NTVG),todasLasButacas);
  	var noche4 = new Noche(new Date(2013,7,23),19,4,List[Banda](callejeros,rollingStone),todasLasButacas);
  	var noche5 = new Noche(new Date(2013,7,24),21,5,List[Banda](losAutentiosDecadentes),todasLasButacas);
+ 	
+ 	SistemaVentas.noches = List[Noche](noche1,noche2,noche3,noche4,noche5);
  		
  	
  	var carlos = new Cliente_Mayor("Nombre = Carlos Fernandez|40 años|DNI = 17.897.364|Nacionalidad = Argentino|Sexo = Masculino");
@@ -76,11 +96,11 @@ class FestivalTests {
 
   @Test
   def cantidadDeButacasLibresTodasLasNoches() {
-    assertEquals(noche1.butacasLibres.size, 21);
-    assertEquals(noche2.butacasLibres.size, 21);
-    assertEquals(noche3.butacasLibres.size, 21);
-    assertEquals(noche4.butacasLibres.size, 21);
-    assertEquals(noche5.butacasLibres.size, 21);
+    assertEquals(noche1.butacasLibres.size, 30);
+    assertEquals(noche2.butacasLibres.size, 30);
+    assertEquals(noche3.butacasLibres.size, 30);
+    assertEquals(noche4.butacasLibres.size, 30);
+    assertEquals(noche5.butacasLibres.size, 30);
   }
 
   @Test
@@ -122,7 +142,8 @@ class FestivalTests {
 
   @Test
   def compraDeEntradaClienteMayorNoche1Butaca1() {
-    var entrada = SistemaVentas.crearEntrada(carlos, noche1, butaca1_1A);
+    var pedido = new PedidoComun(noche1,butaca1_1A,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(carlos,pedido);
     entrada.comprar();
 
     assertEquals(230.0, entrada.precioDeVenta, 0.0);
@@ -130,7 +151,8 @@ class FestivalTests {
 
   @Test
   def compraDeEntradaClienteJubiladoNoche2Butaca6() {
-    var entrada = SistemaVentas.crearEntrada(jose, noche2, butaca6_3B);
+    var pedido = new PedidoComun(noche2,butaca6_3B,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(jose, pedido);
     entrada.comprar();
 
     assertEquals(90.0 * 0.85 + 50.0, entrada.precioDeVenta, 0.0);
@@ -138,7 +160,8 @@ class FestivalTests {
 
   @Test
   def compraDeEntrada_Mayor100_ClienteMenor18Noche3Butaca4() {
-    var entrada = SistemaVentas.crearEntrada(facundo, noche3, butaca4_1B);
+    var pedido = new PedidoComun(noche3,butaca4_1B,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(facundo, pedido);
     entrada.comprar();
 
     assertEquals(110.0 - 22.0 + 50.0, entrada.precioDeVenta, 0.0);
@@ -146,7 +169,8 @@ class FestivalTests {
 
   @Test
   def compraDeEntrada_Menor100_ClienteMenor18Noche4Butaca9() {
-    var entrada = SistemaVentas.crearEntrada(pablo, noche4, butaca9_3C);
+    var pedido = new PedidoComun(noche4,butaca9_3C,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(pablo, pedido);
     entrada.comprar();
 
     assertEquals(70.0 - 10.0 + 200.0, entrada.precioDeVenta, 0.0);
@@ -157,7 +181,8 @@ class FestivalTests {
 
   @Test
   def compraDeEntradaAnticipada_ClienteMayorNoche5Butaca5() {
-    var entrada = SistemaVentas.crearEntrada(carlos, noche5, butaca5_2B);
+    var pedido = new PedidoComun(noche5,butaca5_2B,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(carlos, pedido);
     entrada.comprar();
 
     assertEquals(100.0 - 10.0 + 100.0, entrada.precioDeVenta, 0.0);
@@ -165,7 +190,8 @@ class FestivalTests {
 
   @Test
   def comprarYDevolverEntrada() {
-    var entrada = SistemaVentas.crearEntrada(carlos, noche1, butaca3_3A);
+    var pedido = new PedidoComun(noche1,butaca3_3A,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(carlos, pedido);
     entrada.comprar();
     assertEquals(210.0, entrada.precioDeVenta, 0.0);
     var precioDevuelto = entrada.devolver
@@ -175,9 +201,9 @@ class FestivalTests {
 	
   @Test
   def comprarComboDeEntradasSin10DeDescuento{
-    var pedido1 = new Pedido(noche1,butaca2_2A);
-    var pedido2 = new Pedido(noche2,butaca8_2C);
-    var pedido3 = new Pedido(noche3,butaca7_1C);
+    var pedido1 = new PedidoComun(noche1,butaca2_2A,pagoEfectivo);
+    var pedido2 = new PedidoComun(noche2,butaca8_2C,pagoEfectivo);
+    var pedido3 = new PedidoComun(noche3,butaca7_1C,pagoEfectivo);
     var pedidos = List[Pedido](pedido1,pedido2,pedido3);
     
     var entradas = SistemaVentas.crearEntradas(carlos, pedidos);
@@ -191,13 +217,13 @@ class FestivalTests {
   
   @Test
   def comprarComboDeEntradasCon10DeDescuento{
-	var pedido1 = new Pedido(noche1,butaca10_3C);
-    var pedido2 = new Pedido(noche1,butaca11_3C);
-    var pedido3 = new Pedido(noche1,butaca12_3C);
-    var pedido4 = new Pedido(noche1,butaca13_3C);
-    var pedido5 = new Pedido(noche1,butaca14_3C);
-    var pedido6 = new Pedido(noche1,butaca15_3C);
-    var pedido7 = new Pedido(noche1,butaca16_3C);
+	var pedido1 = new PedidoComun(noche1,butaca10_3C,pagoEfectivo);
+    var pedido2 = new PedidoComun(noche1,butaca11_3C,pagoEfectivo);
+    var pedido3 = new PedidoComun(noche1,butaca12_3C,pagoEfectivo);
+    var pedido4 = new PedidoComun(noche1,butaca13_3C,pagoEfectivo);
+    var pedido5 = new PedidoComun(noche1,butaca14_3C,pagoEfectivo);
+    var pedido6 = new PedidoComun(noche1,butaca15_3C,pagoEfectivo);
+    var pedido7 = new PedidoComun(noche1,butaca16_3C,pagoEfectivo);
     var pedidos = List[Pedido](pedido1,pedido2,pedido3
         ,pedido4,pedido5,pedido6,pedido7);
     
@@ -210,8 +236,17 @@ class FestivalTests {
   }
   
   
+    @Test
+  def compraDeEntradaVIP_ClienteMayorButaca17() {
+    var pedido = new PedidoVIP(butaca17_3C,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(carlos,pedido);
+    entrada.comprar();
+
+    assertEquals(1275.0, entrada.precioDeVenta, 0.0);
+  }
   
 	
 }
+
 
 
