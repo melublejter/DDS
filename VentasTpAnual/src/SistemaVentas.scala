@@ -3,6 +3,7 @@ import java.text.DateFormat
 import java.util.GregorianCalendar
 import java.util.Calendar
 
+
 object SistemaVentas {
 	var noches: List[Noche] = List.empty[Noche];
 	var entradasVendidas: List[Entrada] = List.empty[Entrada];
@@ -27,6 +28,29 @@ object SistemaVentas {
    
    return ent;
  }
+ 
+  def crearEntradas(unCliente: Cliente,pedidos: List[Pedido]): List[Entrada] = {
+	var entradas:List[Entrada]= List.empty[Entrada];
+	var costoTotal:Double =0;
+	var ultNroFact:Int=0;
+	
+    for(pedido <- pedidos){
+      var unaEntrada = crearEntrada(unCliente, pedido.noche, pedido.butaca);
+      costoTotal= costoTotal + unaEntrada.precioDeVenta;
+      entradas=entradas.+:(unaEntrada);
+    }
+    
+    if(costoTotal > 1000.0){
+    	for(entrada <- entradas){
+    		entrada.precioDeVenta=entrada.precioDeVenta*0.90;
+    	}
+    }
+    
+   return entradas;
+ }
+ 
+ 
+ 
  	
 	
  def buscarEntradaVendida(unNroFactura: Int): Entrada = {

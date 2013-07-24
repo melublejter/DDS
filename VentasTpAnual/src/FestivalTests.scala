@@ -159,6 +159,28 @@ class FestivalTests {
 
   }
 	
+  @Test
+  def comprarComboDeEntradasSin10DeDescuento{
+    var pedido1 = new Pedido(noche1,butaca2_2A);
+    var pedido2 = new Pedido(noche2,butaca8_2C);
+    var pedido3 = new Pedido(noche3,butaca7_1C);
+    var pedidos = List[Pedido](pedido1,pedido2,pedido3);
+    
+    var entradas = SistemaVentas.crearEntradas(carlos, pedidos);
+    for(entrada <- entradas){
+      entrada.comprar();
+      assertEquals(210.0, entrada.precioDeVenta, 0.0);
+    }
+    
+  }
+  
+  @Test
+  def comprarComboDeEntradasCon10DeDescuento{
+    
+  }
+  
+  
+  
 	
 }
 
