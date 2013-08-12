@@ -1,7 +1,5 @@
 import java.util.Date
 import scala.collection.immutable.Nil
-//import scala.reflect.internal.This
-//import scala.reflect.internal.This
 import scala.util.control.Exception
 
 abstract class Entrada() {

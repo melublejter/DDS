@@ -1,3 +1,5 @@
+
+
 abstract class Cliente(){
 	var _datosLegales: String;
 

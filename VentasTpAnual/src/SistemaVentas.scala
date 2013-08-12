@@ -4,6 +4,7 @@ import java.util.GregorianCalendar
 import java.util.Calendar
 
 
+
 object SistemaVentas {
 	var noches: List[Noche] = List.empty[Noche];
 	var entradasVendidas: List[Entrada] = List.empty[Entrada];
@@ -11,25 +12,7 @@ object SistemaVentas {
 	var porcentajeDescuentoAnticipada:Double = 0.10;
 	var bandas: List[Banda] = List.empty[Banda];
 
-	
-	
-// def crearEntrada(unCliente: Cliente, unaNoche: Noche, unaButaca: Butaca): Entrada = {
-//
-//   var ultNroFact:Int=0;
-//   if(entradasVendidas.size==0)
-//	   ultNroFact=1;
-//   else	
-//	   ultNroFact = entradasVendidas.last.nroFactura + 1
-//   var ent= new Entrada();
-//   ent.butaca=unaButaca;
-//   ent.noche = unaNoche;
-//   ent.cliente = unCliente;
-//   ent.nroFactura = ultNroFact;
-//   ent.precioDeVenta = this.precioFinal(ent);
-//   
-//   return ent;
-// }
-	
+
 def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 
     var ultNroFact:Int=0;
@@ -120,6 +103,9 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
   }
   
   //Función cambia la categoria de una banda de forma dinámica
+  //Por ahora hice el test con un setter nomas, 
+  //porque me daba error en el filter,
+  //Parece que no encontrabaa a ninguno con ese nombre
   def cambiarCategoriaBanda(nombreBanda: String, id: Int, costoExtra: Double){
 	 var bandaBuscada =	((bandas.filter(unaBanda=>unaBanda.nombre == nombreBanda)).head)
 	 bandaBuscada.categoria(new Categoria(id,costoExtra))

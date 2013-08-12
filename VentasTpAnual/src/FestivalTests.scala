@@ -9,6 +9,7 @@ import java.lang.Object
 import sun.util.calendar.Gregorian
 
 
+
 class FestivalTests {
   	
 	
@@ -93,6 +94,8 @@ class FestivalTests {
  	var jose = new Cliente_Jubilado("Nombre = Josa Gomez|60 años|DNI = 8.897.364|Nacionalidad = Argentino|Sexo = Masculino");
  	var facundo = new Cliente_Menor("Nombre = Facundo Hernandez|15 años|DNI = 42.897.364|Nacionalidad = Argentino|Sexo = Masculino");
  	var pablo = new Cliente_Menor("Nombre = Pablo Gimenez|20 años|DNI = 37.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var pedrito = new Cliente_MenorDe12("Nombre = Pedrito Benitez|11 años|DNI = 47.897.364|Nacionalidad = Argentino|Sexo = Masculino",true);
+ 	var florencia = new Cliente_Mujer("Nombre = Florencia Rodriguez|19 años|DNI = 39.897.364|Nacionalidad = Argentino|Sexo = Femenino",true);
 
   @Test
   def cantidadDeButacasLibresTodasLasNoches() {
@@ -199,6 +202,8 @@ class FestivalTests {
 
   }
 	
+  /***************** PUNTO 1 - Venta en Combo ***********/
+  
   @Test
   def comprarComboDeEntradasSin10DeDescuento{
     var pedido1 = new PedidoComun(noche1,butaca2_2A,pagoEfectivo);
@@ -236,13 +241,44 @@ class FestivalTests {
   }
   
   
+  /***************** PUNTO 5 - Entradas VIP ************/
+  
     @Test
   def compraDeEntradaVIP_ClienteMayorButaca17() {
+
     var pedido = new PedidoVIP(butaca17_3C,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(carlos,pedido);
     entrada.comprar();
 
     assertEquals(1275.0, entrada.precioDeVenta, 0.0);
+  }
+    
+    
+    /***************** PUNTO 3 - Categorias De Bandas  ************/
+    @Test
+  def cambiarCategoriaACallejeros() {
+    assertEquals(50.0, callejeros.categoria.costoExtra, 0.0);
+    callejeros.categoria(categoria4);
+    assertEquals(200.0, callejeros.categoria.costoExtra, 0.0);
+  }
+   
+    /***************** PUNTO 2 - Cmabios en la politica de descuento  ************/
+    @Test
+  def compraDeEntrada_ClienteMenorDe12Noche4Butaca18() {
+    var pedido = new PedidoComun(noche4,butaca18_3C,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(pedrito, pedido);
+    entrada.comprar();
+
+    assertEquals(70.0 - 35.0 + 200.0, entrada.precioDeVenta, 0.0);
+  }
+    
+    @Test
+  def compraDeEntrada_ClienteMujerNoche3Butaca19() {
+    var pedido = new PedidoComun(noche3,butaca19_3C,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(florencia, pedido);
+    entrada.comprar();
+
+    assertEquals(70.0 - 14.0 + 50.0, entrada.precioDeVenta, 0.0);
   }
   
 	

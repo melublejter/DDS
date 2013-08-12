@@ -1,3 +1,7 @@
+
+
+
+
 class Cliente_Mayor(datosLegales:String) extends Cliente {
 	var _datosLegales: String = datosLegales;
   
