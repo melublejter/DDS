@@ -7,6 +7,7 @@ class Cliente_Menor(datosLegales:String) extends Cliente {
   
 		
  override def dtoTipoPersona(precioBase:Double):Double = {
+   if(SistemaVentas.descuentos.contains("menores de 18")){
 		if (precioBase > 100) 
 			return (precioBase *0.20);
 		if((precioBase <= 100) && (precioBase > 50)){
@@ -15,9 +16,11 @@ class Cliente_Menor(datosLegales:String) extends Cliente {
 			}
 		else
 		  return 0;	
+ }else
+   return 0;
+   
 		//Puse este else porque sino me daba error
 		//"type mismatch found unit required double"
-		
 } 
   
 }

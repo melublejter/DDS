@@ -14,6 +14,9 @@ class FestivalTests {
   	
 	
  	@Before
+ 	var descuentos = List[String]("mujeres","menores de 18","menores de 12","jubilados");
+ 	SistemaVentas.descuentos = descuentos;
+ 	
  	var sectorA = new Sector(80.0,'A');
  	var sectorB = new Sector(60.0,'B');
  	var sectorC= new Sector(40.0,'C');
@@ -249,7 +252,6 @@ class FestivalTests {
     var pedido = new PedidoVIP(butaca17_3C,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(carlos,pedido);
     entrada.comprar();
-
     assertEquals(1275.0, entrada.precioDeVenta, 0.0);
   }
     
@@ -268,7 +270,6 @@ class FestivalTests {
     var pedido = new PedidoComun(noche4,butaca18_3C,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(pedrito, pedido);
     entrada.comprar();
-
     assertEquals(70.0 - 35.0 + 200.0, entrada.precioDeVenta, 0.0);
   }
     
@@ -277,10 +278,32 @@ class FestivalTests {
     var pedido = new PedidoComun(noche3,butaca19_3C,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(florencia, pedido);
     entrada.comprar();
-
     assertEquals(70.0 - 14.0 + 50.0, entrada.precioDeVenta, 0.0);
   }
   
+    @Test
+  def compraDeEntrada_ClienteMujerNoche1Butaca20_SinDescuento() {
+      //Para que el festival no tenga el descuento de mujeres, lo saco e la lista de descuentos
+      //Y despues lo vuelvo a meter para que no haya problemas con los otros tests
+      
+    SistemaVentas.sacarDescuento("mujeres");  
+    var pedido = new PedidoComun(noche1,butaca20_3C,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(florencia, pedido);
+    entrada.comprar();
+    assertEquals(70.0 - 0.0 + 100.0, entrada.precioDeVenta, 0.0);
+    SistemaVentas.agregarDescuento("mujeres");
+  }
+    
+  def compraDeEntrada_ClienteJubiladoNoche4Butaca21_SinDescuento() {
+    	//Para que el festival no tenga el descuento de mujeres, lo saco e la lista de descuentos
+    	//Y despues lo vuelvo a meter para que no haya problemas con los otros tests
+   	SistemaVentas.sacarDescuento("jubilados");  
+   	var pedido = new PedidoComun(noche4,butaca21_3C,pagoEfectivo);
+   	var entrada = SistemaVentas.crearEntrada(jose, pedido);
+    entrada.comprar();
+    assertEquals(70.0 - 0.0 + 200.0, entrada.precioDeVenta, 0.0);
+    SistemaVentas.agregarDescuento("jubilados");
+  }
 	
 }
 

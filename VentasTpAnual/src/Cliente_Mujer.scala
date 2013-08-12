@@ -5,10 +5,13 @@ class Cliente_Mujer(datosLegales:String, estaAcompaniado: Boolean) extends Clien
   
 		
  override def dtoTipoPersona(precioBase:Double):Double = {
-		if (true) 
+   if(SistemaVentas.descuentos.contains("mujeres"))
+		if ((SistemaVentas.entradasDeMujeresConDescVendidas / SistemaVentas.cantidadEntradas) < 0.20) 
 			return (precioBase *0.20);
 		else
-		  return 0;			
+		  return 0;
+   else
+     return 0;
 } 
   
 }

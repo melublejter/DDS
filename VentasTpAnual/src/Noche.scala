@@ -7,7 +7,7 @@ class Noche(unaFecha:Date,unaHora:Int, unId :Int,
 	var horaInicio: Int = unaHora;
 	var bandas: List[Banda] = lasBandas;
 	var butacasLibres: List[Butaca] = lasButacas;
-	var butacasOcupadas: List[Butaca] = List.empty[Butaca];
+	var butacas: List[Butaca] = lasButacas;
 	var id: Int  = unId;
 	
 	def valorExtra():Double = {

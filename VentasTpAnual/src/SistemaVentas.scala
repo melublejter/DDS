@@ -11,8 +11,23 @@ object SistemaVentas {
 	var diasMinDescuentoAnticipada: Int = 30;
 	var porcentajeDescuentoAnticipada:Double = 0.10;
 	var bandas: List[Banda] = List.empty[Banda];
+	var descuentos: List[String] = List.empty[String];
 
 
+def cantidadEntradas():Int ={
+  var entradas=0;
+  for(unaNoche <- noches){
+    entradas += unaNoche.butacas.length;
+  }
+  return entradas;
+}
+
+def entradasDeMujeresConDescVendidas(): Int ={
+  entradasVendidas.filter(entrada =>(entrada.cliente.isInstanceOf[Cliente_Mujer])).length;
+  return 0;
+}
+
+	
 def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 
     var ultNroFact:Int=0;
@@ -50,14 +65,14 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
    return entradas;
  }
  
- 
- 
- 	
 	
  def buscarEntradaVendida(unNroFactura: Int): Entrada = {
    var nro= unNroFactura
    return entradasVendidas.filter(e=>(e.nroFactura == nro)).head
  }
+ 
+ 
+ //entradasVendidas.filter(e=>(e.cliente.isInstanceOf[Cliente_Mujer])
  
   
  def calcularDescuentoAnticipa(precio: Double, noche: Noche): Double = {
@@ -114,6 +129,16 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
   
   def agregarBanda(unaBanda:Banda){
      bandas = bandas.+:(unaBanda);
+  }
+  
+  def agregarDescuento(unDescuento: String ){
+    descuentos = descuentos.+:(unDescuento);
+  }
+  
+  def sacarDescuento(unDescuento: String){
+    var nuevosDescuentos = descuentos.filterNot(elemento => elemento.equals(unDescuento));
+    descuentos = nuevosDescuentos;
+    
   }
   
   
