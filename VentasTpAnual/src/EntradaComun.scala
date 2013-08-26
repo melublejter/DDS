@@ -24,10 +24,11 @@ override def devolver(): Double ={
 }
 
   	
-override def comprar() : Boolean = {
+override def comprar(cod: String = "") : Boolean = {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
-  		if (tipoDePago.comprar(this)){
+  		if (butaca.codigo.!=(cod)){return false}
+		if (tipoDePago.comprar(this)){
   			if  (SistemaVentas.entradasVendidas.==(this)){
   				return false;
   			}

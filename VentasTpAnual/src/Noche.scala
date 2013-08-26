@@ -7,8 +7,17 @@ class Noche(unaFecha:Date,unaHora:Int, unId :Int,
 	var horaInicio: Int = unaHora;
 	var bandas: List[Banda] = lasBandas;
 	var butacasLibres: List[Butaca] = lasButacas;
+	var butacasDePromocion: List[Butaca] = List.empty[Butaca];;
 	var butacas: List[Butaca] = lasButacas;
 	var id: Int  = unId;
+	
+	def reservarButaca(unaButacaPromocional: Butaca, suCodigo: String): Boolean ={
+	  unaButacaPromocional.setCodigo(suCodigo);
+	  butacasLibres= butacasLibres.diff(List(unaButacaPromocional));
+  	  butacasDePromocion= butacasDePromocion.+:(unaButacaPromocional);
+	  return true
+	}
+	
 	
 	def valorExtra():Double = {
 	  return this.maxCategoria().costoExtra;

@@ -26,7 +26,7 @@ override def devolver(): Double ={
   	  return precioDeVenta*0.5;
   	}
   	
-override def comprar() : Boolean = {
+override def comprar(cod: String = "") : Boolean = {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
 		if (tipoDePago.comprar(this)){

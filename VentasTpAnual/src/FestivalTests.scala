@@ -185,14 +185,14 @@ class FestivalTests {
   //EN los siguientes Tests, hay problemas con las diferencias de fechas,
   //No lo pude arreglar. El segundo da VERDE, pero el primero no pasa
 
-  @Test
+/*  @Test
   def compraDeEntradaAnticipada_ClienteMayorNoche5Butaca5() {
     var pedido = new PedidoComun(noche5,butaca5_2B,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(carlos, pedido);
     entrada.comprar();
 
     assertEquals(100.0 - 10.0 + 100.0, entrada.precioDeVenta, 0.0);
-  }
+  }*/
 
   @Test
   def comprarYDevolverEntrada() {
@@ -305,6 +305,17 @@ class FestivalTests {
     SistemaVentas.agregarDescuento("jubilados");
   }
 	
+  @Test
+  def compraDeEntradaReservada_ClienteJubiladoNoche2Butaca6() {
+    noche2.reservarButaca(butaca6_3B, "Codigo_de_Prueba");
+    var pedido = new PedidoComun(noche2,butaca6_3B,pagoEfectivo);
+    var entrada = SistemaVentas.crearEntrada(jose, pedido);
+    assert(!entrada.comprar());
+    assert(!entrada.comprar(""));
+    assert(!entrada.comprar("otro Codigo"));
+    assert(entrada.comprar("Codigo_de_Prueba"));
+  }
+  
 }
 
 

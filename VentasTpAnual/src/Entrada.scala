@@ -17,7 +17,7 @@ tipoDePago que tenga un objeto de una clase pagoEnEfectivos o de una clase pagoC
 Que en el metodo comprar de la entrada llame a tipoDePago.comprar()
 */
 
-def comprar() : Boolean;
+def comprar(cod: String = "") : Boolean;
   
   def precioFinal(): Double; 
   
