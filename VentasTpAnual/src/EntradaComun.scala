@@ -24,22 +24,11 @@ override def devolver(): Double ={
 }
 
   	
-override def comprar(cod: String = "") : Boolean = {
-    //No tendria que ser un lista contiene entrada? en vez de un "=="?
-    //O tendria que sacarlo si lo verifico antes
-  		if (butaca.codigo.!=(cod)){return false}
-		if (tipoDePago.comprar(this)){
-  			if  (SistemaVentas.entradasVendidas.==(this)){
-  				return false;
-  			}
-  			noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
-  			SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
-  			this.imprimir();
-  			
-  			return true;
-  		}
-  		else	//PONGO ese else porque tira un error porque puede que no devuelva un booleano sino
-  		  return false;
+override def comprar(cod: String = "")  {
+  
+  
+		  tipoDePago.comprar(this)
+
 }
 
  override def precioFinal(): Double = {
@@ -51,6 +40,19 @@ override def comprar(cod: String = "") : Boolean = {
    
    return  precio - dtoAnticipada;
     
+  }
+  
+  private def realizarCompra(cod: String) {
+    //No tendria que ser un lista contiene entrada? en vez de un "=="?
+    //O tendria que sacarlo si lo verifico antes
+    if (butaca.codigo.!=(cod)){return}
+  			if  (SistemaVentas.entradasVendidas.==(this)){
+  				return;
+  			}
+  			noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
+  			SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
+  			this.imprimir();
+  	
   }
  
 

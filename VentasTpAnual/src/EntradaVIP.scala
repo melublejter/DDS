@@ -26,22 +26,9 @@ override def devolver(): Double ={
   	  return precioDeVenta*0.5;
   	}
   	
-override def comprar(cod: String = "") : Boolean = {
-    //No tendria que ser un lista contiene entrada? en vez de un "=="?
-    //O tendria que sacarlo si lo verifico antes
-		if (tipoDePago.comprar(this)){
-			if  (SistemaVentas.entradasVendidas.==(this)){
-				return false;
-			}
-			for(noche <- SistemaVentas.noches){
-				noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
-			}
-			SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
-			this.imprimir(); 
-			return true;
-		}
-		else
-		  return false;
+override def comprar(cod: String = "") {
+  
+		  tipoDePago.comprar(this)
   }
 
 
@@ -69,5 +56,19 @@ override def precioFinal(): Double = {
   
    return precio;
 }
+  
+  private def realizarCompra(): Boolean = {
+    //No tendria que ser un lista contiene entrada? en vez de un "=="?
+    //O tendria que sacarlo si lo verifico antes
+    	if  (SistemaVentas.entradasVendidas.==(this)){
+    		return false;
+    	}
+    	for(noche <- SistemaVentas.noches){
+    		noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
+    	}
+    	SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
+    	this.imprimir(); 
+    	return true;
+  }
   	  
 }

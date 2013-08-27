@@ -12,6 +12,7 @@ object SistemaVentas {
 	var porcentajeDescuentoAnticipada:Double = 0.10;
 	var bandas: List[Banda] = List.empty[Banda];
 	var descuentos: List[String] = List.empty[String];
+	var pagosPendientes: List[Pago] = List.empty[Pago];
 
 
 def cantidadEntradas():Int ={
@@ -125,6 +126,11 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 	 var bandaBuscada =	((bandas.filter(unaBanda=>unaBanda.nombre == nombreBanda)).head)
 	 bandaBuscada.categoria(new Categoria(id,costoExtra))
 	 
+  }
+  
+  def agregarPagoPendiente(unaEntrada:Entrada,nombre:String,tarjeta:String) {
+    pagosPendientes.+:(new Pago(unaEntrada,nombre,tarjeta));
+    
   }
   
   def agregarBanda(unaBanda:Banda){

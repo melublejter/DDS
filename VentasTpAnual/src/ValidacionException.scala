@@ -1,0 +1,3 @@
+class ValidacionException extends IllegalStateException {
+
+}

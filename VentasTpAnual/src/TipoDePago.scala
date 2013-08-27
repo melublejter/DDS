@@ -9,49 +9,45 @@ abstract class TipoDePago {
 
 class PagoEnEfectivo extends TipoDePago(){
   
-	def comprar(unaEntrada:Entrada): Boolean = {
-	    //No tendria que ser un lista contiene entrada? en vez de un "=="?
-	    //O tendria que sacarlo si lo verifico antes
+	def comprar(unaEntrada:Entrada) {
 	    if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
-	      return false;
+	      return
 	      }
+	    unaEntrada.realizarCompra();
 	    
-	    return true;
+	    
   }
 	
 }
 
 
-class PagoConTarjeta extends TipoDePago(){
+class PagoConTarjeta() extends TipoDePago(){
+  var _sisCobro: SistemaDeCobro
   
- def comprar(unaEntrada:Entrada): Boolean = {
+ def comprar(unaEntrada:Entrada) {
 	//usa la api
-	  var numeroTarjeta:Int=0;
 	  
 		if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
-	      return false;	//NO encuentra la estrada en la lista de vendidas 
+	      return;	//NO encuentra la estrada en la lista de vendidas 
 	    }
 	     print("Ingrese el apellido y nombre del comprador : " )
 	     val nombreCliente = Console.readLine
 	     print("Ingrese el numero de tarjeta del comprador : " )
-	     numeroTarjeta =  (Console.readLine).toInt
+	     val numeroTarjeta =  Console.readLine
 	     
-	     //el try catch creo q deberia estar aca
-	    /* 
+	    
 	     try {
-	    	 informarAPaymentGateway(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);
-	    	 return true;
+	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta)
 		   } catch {	
-				case "Error de conexion": Exception=>
-					println("Error de conexion.")
-					//se deberá registrar un pago pendiente en el sistema
-				case "Fallo en la validación de datos": Exception =>  
-				  	println("Fallo: esto puede deberse a que no tiene suficiente crédito, la tarjeta es inválida, etc.")
-				  	//En este caso, se debe deshacer la venta
+				case e: DesconexionException => SistemaVentas.agregarPagoPendiente(unaEntrada,nombreCliente,numeroTarjeta)
+				case e: ValidacionException =>  
+				  		return
+				  		//loguear venta no realizada o informar por pantalla
 			}
 	    
-	    return false;*/
-	     return true;
+	    finally{
+  		unaEntrada.realizarCompra();
+	    }
   }
   
   

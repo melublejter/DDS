@@ -1,0 +1,3 @@
+class DesconexionException extends IllegalStateException {
+
+}
