@@ -316,6 +316,22 @@ class FestivalTests {
     assert(entrada.comprar("Codigo_de_Prueba"));
   }
   
+  @Test
+  class ImpostorSistemaDeCobro extends SistemaDeCobro(){
+    var _estaConectado: Boolean = True;
+ 
+	override def cobrar(precioDeVenta:Double, nombreCliente:String, numeroTarjeta:Int){
+	  return true;
+	}
+	override def estaConectado(){
+	  if(_estaConectado==false){
+	    //tirar excepcion
+	    return false;
+	  }
+	  return true;
+	} 
+  }
+  
 }
 
 
