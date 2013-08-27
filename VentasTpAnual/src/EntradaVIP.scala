@@ -28,7 +28,7 @@ override def devolver(): Double ={
   	
 override def comprar(cod: String = "") {
   
-		  tipoDePago.comprar(this)
+		  tipoDePago.comprar(this,cod)
   }
 
 
@@ -57,18 +57,18 @@ override def precioFinal(): Double = {
    return precio;
 }
   
-  private def realizarCompra(): Boolean = {
+  override def realizarCompra(cod: String) {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
     	if  (SistemaVentas.entradasVendidas.==(this)){
-    		return false;
+    		return ;
     	}
     	for(noche <- SistemaVentas.noches){
     		noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
     	}
     	SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
     	this.imprimir(); 
-    	return true;
+    	return;
   }
   	  
 }

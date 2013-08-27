@@ -4,16 +4,16 @@ import java.sql.Struct
 
 abstract class TipoDePago {
 
-	def comprar(unaEntrada:Entrada):Boolean;
+	def comprar(unaEntrada:Entrada,cod:String);
 }
 
 class PagoEnEfectivo extends TipoDePago(){
   
-	def comprar(unaEntrada:Entrada) {
+	def comprar(unaEntrada:Entrada,cod: String) {
 	    if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
 	      return
 	      }
-	    unaEntrada.realizarCompra();
+	    unaEntrada.realizarCompra(cod);
 	    
 	    
   }
@@ -22,9 +22,9 @@ class PagoEnEfectivo extends TipoDePago(){
 
 
 class PagoConTarjeta() extends TipoDePago(){
-  var _sisCobro: SistemaDeCobro
+  var _sisCobro: SistemaDeCobro = null
   
- def comprar(unaEntrada:Entrada) {
+ def comprar(unaEntrada:Entrada,cod:String) {
 	//usa la api
 	  
 		if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
@@ -46,7 +46,7 @@ class PagoConTarjeta() extends TipoDePago(){
 			}
 	    
 	    finally{
-  		unaEntrada.realizarCompra();
+  		unaEntrada.realizarCompra(cod:String);
 	    }
   }
   

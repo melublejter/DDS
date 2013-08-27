@@ -27,7 +27,7 @@ override def devolver(): Double ={
 override def comprar(cod: String = "")  {
   
   
-		  tipoDePago.comprar(this)
+		  tipoDePago.comprar(this,cod)
 
 }
 
@@ -42,7 +42,7 @@ override def comprar(cod: String = "")  {
     
   }
   
-  private def realizarCompra(cod: String) {
+  override def realizarCompra(cod: String) {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
     if (butaca.codigo.!=(cod)){return}

@@ -26,7 +26,7 @@ def comprar(cod: String = "");
 	  /*envia imprimir a la impresora fiscal*/
   }
   	
-  def realizarCompra(): Boolean;
+  def realizarCompra(cod: String);
   	
   def devolver(): Double;
 }
