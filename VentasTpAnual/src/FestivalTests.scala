@@ -317,20 +317,20 @@ class FestivalTests {
   }
   
   @Test
-  class ImpostorSistemaDeCobro extends SistemaDeCobro(){
-    var _estaConectado: Boolean = True;
+  class ImpostorSistemaDeCobro(estaConectado:Boolean) extends SistemaDeCobro{
  
 	override def cobrar(precioDeVenta:Double, nombreCliente:String, numeroTarjeta:Int){
 	  return true;
 	}
 	override def estaConectado(){
-	  if(_estaConectado==false){
+	  if(estaConectado==false){
 	    //tirar excepcion
 	    return false;
 	  }
 	  return true;
 	} 
   }
+  var unImpostor = new ImpostorSistemaDeCobro(true);
   
 }
 
