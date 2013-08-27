@@ -325,6 +325,7 @@ class FestivalTests {
 	override def estaConectado(){
 	  if(estaConectado==false){
 	    //tirar excepcion
+	    throw new ScalaCustomException("Esta desconectado el sistema");
 	    return false;
 	  }
 	  return true;
