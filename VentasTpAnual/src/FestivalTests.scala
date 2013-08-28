@@ -343,9 +343,48 @@ class FestivalTests {
   }
   */
   
+    /***************** PUNTO 6 - Compra con tarjeta  ************/
+ 
+  
   @Test
-  var unImpostor = new ImpostorSistemaDeCobro(true,true);
-  pagoTarjeta._sisCobro = unImpostor;
+  def impostorEstaConectadoYValida{
+	  var unImpostorValidaYConecta = new ImpostorSistemaDeCobro(true,true);
+	  pagoTarjeta._sisCobro = unImpostorValidaYConecta;
+	  var pedidoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
+	  var entradaValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYConecta);
+	  entradaValidaYConecta.comprar();
+	  assert(SistemaVentas.entradasVendidas.==(entradaValidaYConecta));
+  }
+   
+  @Test
+  def impostorEstaConectadoYNoValida{
+	  var unImpostorNoValidaYConecta = new ImpostorSistemaDeCobro(true,false);
+	  pagoTarjeta._sisCobro = unImpostorNoValidaYConecta;
+	  var pedidoNoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
+	  var entradaNoValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYConecta);
+	  entradaNoValidaYConecta.comprar();
+	  assert(!SistemaVentas.entradasVendidas.==(entradaNoValidaYConecta));
+  }
+
+  @Test
+  def impostorEstaNoConectadoYValida{
+	  var unImpostorValidaYNoConecta = new ImpostorSistemaDeCobro(false,true);
+	  pagoTarjeta._sisCobro = unImpostorValidaYNoConecta;
+	  var pedidoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
+	  var entradaValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYNoConecta);
+	  entradaValidaYNoConecta.comprar();
+	  assert(!SistemaVentas.entradasVendidas.==(entradaValidaYNoConecta));
+  }  
+
+  @Test
+  def impostorEstaNoConectadoYNoValida{
+	  var unImpostorNoValidaYNoConecta = new ImpostorSistemaDeCobro(false,false);
+	  pagoTarjeta._sisCobro = unImpostorNoValidaYNoConecta;
+	  var pedidoNoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
+	  var entradaNoValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYNoConecta);
+	  entradaNoValidaYNoConecta.comprar();
+	  assert(!SistemaVentas.entradasVendidas.==(entradaNoValidaYNoConecta));
+  }
   
 }
 
