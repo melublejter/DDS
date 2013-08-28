@@ -39,6 +39,8 @@ class FestivalTests {
  	
  	var descuentos = List[String]("mujeres","menores de 18","menores de 12","jubilados");
  	SistemaVentas.descuentos = descuentos;
+ 	SistemaVentas.pagosPendientes = List.empty[Pago];
+ 	SistemaVentas.entradasVendidas = List.empty[Entrada];
  	
  	var sectorA = new Sector(80.0,'A');
  	var sectorB = new Sector(60.0,'B');
@@ -329,19 +331,20 @@ class FestivalTests {
   }
 	
   
-  /*Habria que arreglar este test para que se fije en los casos de los codigos que realmente no compre la entrada o cambiar la definicion de los metodos
-   * de comprar
   @Test
   def compraDeEntradaReservada_ClienteJubiladoNoche2Butaca6() {
     noche2.reservarButaca(butaca6_3B, "Codigo_de_Prueba");
     var pedido = new PedidoComun(noche2,butaca6_3B,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(jose, pedido);
-    assert(!entrada.comprar());
-    assert(!entrada.comprar(""));
-    assert(!entrada.comprar("otro Codigo"));
-    assert(entrada.comprar("Codigo_de_Prueba"));
+    entrada.comprar();
+    entrada.comprar("");
+    entrada.comprar("otro Codigo");
+    assert(!SistemaVentas.entradasVendidas.contains(entrada));
+    entrada.comprar("Codigo_de_Prueba");
+    assert(SistemaVentas.entradasVendidas.contains(entrada));
+    assert(!noche2.butacasLibres.contains(entrada.butaca));
   }
-  */
+  
   
     /***************** PUNTO 6 - Compra con tarjeta  ************/
  
@@ -353,7 +356,8 @@ class FestivalTests {
 	  var pedidoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
 	  var entradaValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYConecta);
 	  entradaValidaYConecta.comprar();
-	  assert(SistemaVentas.entradasVendidas.==(entradaValidaYConecta));
+	  assert(SistemaVentas.entradasVendidas.contains(entradaValidaYConecta));
+	  assert(!noche1.butacasLibres.contains(entradaValidaYConecta.butaca))
   }
    
   @Test
@@ -363,7 +367,8 @@ class FestivalTests {
 	  var pedidoNoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
 	  var entradaNoValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYConecta);
 	  entradaNoValidaYConecta.comprar();
-	  assert(!SistemaVentas.entradasVendidas.==(entradaNoValidaYConecta));
+	  assert(!SistemaVentas.entradasVendidas.contains(entradaNoValidaYConecta));
+	  assert(noche1.butacasLibres.contains(entradaNoValidaYConecta.butaca))
   }
 
   @Test
@@ -373,7 +378,12 @@ class FestivalTests {
 	  var pedidoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
 	  var entradaValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYNoConecta);
 	  entradaValidaYNoConecta.comprar();
-	  assert(!SistemaVentas.entradasVendidas.==(entradaValidaYNoConecta));
+	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
+	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
+	  //se cobra correctamente la entrada debería seguir vendida
+	  assert(SistemaVentas.entradasVendidas.contains(entradaValidaYNoConecta));
+	  assert(!noche1.butacasLibres.contains(entradaValidaYNoConecta.butaca));
+	  assertEquals(1,SistemaVentas.pagosPendientes.length);
   }  
 
   @Test
@@ -383,7 +393,12 @@ class FestivalTests {
 	  var pedidoNoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
 	  var entradaNoValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYNoConecta);
 	  entradaNoValidaYNoConecta.comprar();
-	  assert(!SistemaVentas.entradasVendidas.==(entradaNoValidaYNoConecta));
+	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
+	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
+	  //se cobra correctamente la entrada debería seguir vendida
+	  assert(SistemaVentas.entradasVendidas.contains(entradaNoValidaYNoConecta));
+	  assert(!noche1.butacasLibres.contains(entradaNoValidaYNoConecta.butaca));
+	  assertEquals(1,SistemaVentas.pagosPendientes.length);
   }
   
 }

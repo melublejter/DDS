@@ -25,6 +25,16 @@ override def devolver(): Double ={
   	  devuelta=true;
   	  return precioDeVenta*0.5;
   	}
+
+override def anular() {
+  
+	SistemaVentas.entradasVendidas = SistemaVentas.entradasVendidas.filter(entrada=> entrada != this)
+	
+    for(noche <- SistemaVentas.noches){
+  		  noche.butacasLibres=noche.butacasLibres.+:(butaca);
+  	  }
+  
+}
   	
 override def comprar(cod: String = "") {
   

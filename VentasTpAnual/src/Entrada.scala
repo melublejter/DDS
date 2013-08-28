@@ -19,6 +19,8 @@ Que en el metodo comprar de la entrada llame a tipoDePago.comprar()
 
 def comprar(cod: String = "");
   
+def anular();
+
   def precioFinal(): Double; 
   
   def imprimir(){
@@ -26,7 +28,7 @@ def comprar(cod: String = "");
 	  /*envia imprimir a la impresora fiscal*/
   }
   	
-  def realizarCompra(cod: String);
+  def realizarCompra(cod: String );
   	
   def devolver(): Double;
 }

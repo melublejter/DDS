@@ -35,19 +35,16 @@ class PagoConTarjeta() extends TipoDePago(){
 	     print("Ingrese el numero de tarjeta del comprador : " )
 	     val numeroTarjeta =  Console.readLine
 	     
-	    
+	    unaEntrada.realizarCompra(cod:String);
+	     
 	     try {
-	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta)
+	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);
 		   } catch {	
-				case e: DesconexionException => SistemaVentas.agregarPagoPendiente(unaEntrada,nombreCliente,numeroTarjeta)
-				case e: ValidacionException =>  
-				  		return
+				case e: DesconexionException => SistemaVentas.agregarPagoPendiente(new Pago(unaEntrada,nombreCliente,numeroTarjeta))
+				case e: ValidacionException =>  unaEntrada.anular()
 				  		//loguear venta no realizada o informar por pantalla
 			}
 	    
-	    finally{
-  		unaEntrada.realizarCompra(cod:String);
-	    }
   }
   
   

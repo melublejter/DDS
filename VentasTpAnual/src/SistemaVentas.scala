@@ -118,6 +118,15 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
     
   }
   
+  //Funcion que realiza el cobro de todas los pagos pendientes
+  //TODO Completar para que se pueda implementar los pagos luego de que queden pendientes
+  def cobrarPagos(){
+    for (unPago<- this.pagosPendientes){
+      unPago.cobrar()
+    }
+    
+  }
+  
   //Función cambia la categoria de una banda de forma dinámica
   //Por ahora hice el test con un setter nomas, 
   //porque me daba error en el filter,
@@ -128,8 +137,8 @@ def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 	 
   }
   
-  def agregarPagoPendiente(unaEntrada:Entrada,nombre:String,tarjeta:String) {
-    pagosPendientes.+:(new Pago(unaEntrada,nombre,tarjeta));
+  def agregarPagoPendiente(unPago:Pago) {
+    pagosPendientes = pagosPendientes.+:(unPago);
     
   }
   
