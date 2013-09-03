@@ -4,17 +4,17 @@ import java.sql.Struct
 
 abstract class TipoDePago {
 
-	def comprar(unaEntrada:Entrada,cod:String);
+	def comprar(unaEntrada:Entrada,cod:String): Boolean;
 }
 
 class PagoEnEfectivo extends TipoDePago(){
   
-	def comprar(unaEntrada:Entrada,cod: String) {
+	def comprar(unaEntrada:Entrada,cod: String): Boolean = {
 	    if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
-	      return
+	      return false;
 	      }
 	    unaEntrada.realizarCompra(cod);
-	    
+	    return true;
 	    
   }
 	
@@ -24,27 +24,26 @@ class PagoEnEfectivo extends TipoDePago(){
 class PagoConTarjeta() extends TipoDePago(){
   var _sisCobro: SistemaDeCobro = null
   
- def comprar(unaEntrada:Entrada,cod:String) {
+ override def comprar(unaEntrada:Entrada,cod:String) : Boolean = {
 	//usa la api
 	  
 		if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
-	      return;	//NO encuentra la estrada en la lista de vendidas 
+	      return false;	//NO encuentra la estrada en la lista de vendidas 
 	    }
-	     print("Ingrese el apellido y nombre del comprador : " )
-	     val nombreCliente = Console.readLine
-	     print("Ingrese el numero de tarjeta del comprador : " )
-	     val numeroTarjeta =  Console.readLine
+	     val nombreCliente = unaEntrada.cliente._apellido.+(", ").+(unaEntrada.cliente._nombre);
+	     val numeroTarjeta = unaEntrada.cliente._nroTarjeta;
 	     
-	    unaEntrada.realizarCompra(cod:String);
+	    unaEntrada.realizarCompra(cod);
 	     
 	     try {
 	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);
+	    	 return true;
 		   } catch {	
 				case e: DesconexionException => SistemaVentas.agregarPagoPendiente(new Pago(unaEntrada,nombreCliente,numeroTarjeta))
 				case e: ValidacionException =>  unaEntrada.anular()
 				  		//loguear venta no realizada o informar por pantalla
 			}
-	    
+	    return false;
   }
   
   

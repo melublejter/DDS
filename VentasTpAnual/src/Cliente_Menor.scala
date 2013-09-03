@@ -2,8 +2,7 @@
 
 
 
-class Cliente_Menor(datosLegales:String) extends Cliente {
-	var _datosLegales: String = datosLegales;
+class Cliente_Menor(nombre: String, apellido: String, nroTarjeta: String, restoDatosLegales: String) extends Cliente(nombre, apellido, nroTarjeta, restoDatosLegales) {
   
 		
  override def dtoTipoPersona(precioBase:Double):Double = {

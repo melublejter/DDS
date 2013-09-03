@@ -1,8 +1,7 @@
 
 
-class Cliente_MenorDe12(datosLegales:String, estaAcompaniado: Boolean) extends Cliente {
-	var _datosLegales: String = datosLegales;
-	var acompaniado: Boolean = estaAcompaniado; 
+class Cliente_MenorDe12(nombre: String, apellido: String, nroTarjeta: String, restoDatosLegales: String, estaAcompaniado: Boolean) extends Cliente(nombre, apellido, nroTarjeta, restoDatosLegales) {
+	var acompaniado = estaAcompaniado; 
   
 		
  override def dtoTipoPersona(precioBase:Double):Double = {

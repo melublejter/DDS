@@ -118,12 +118,12 @@ class FestivalTests {
  	SistemaVentas.noches = List[Noche](noche1,noche2,noche3,noche4,noche5);
  		
  	
- 	var carlos = new Cliente_Mayor("Nombre = Carlos Fernandez|40 años|DNI = 17.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var jose = new Cliente_Jubilado("Nombre = Josa Gomez|60 años|DNI = 8.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var facundo = new Cliente_Menor("Nombre = Facundo Hernandez|15 años|DNI = 42.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var pablo = new Cliente_Menor("Nombre = Pablo Gimenez|20 años|DNI = 37.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var pedrito = new Cliente_MenorDe12("Nombre = Pedrito Benitez|11 años|DNI = 47.897.364|Nacionalidad = Argentino|Sexo = Masculino",true);
- 	var florencia = new Cliente_Mujer("Nombre = Florencia Rodriguez|19 años|DNI = 39.897.364|Nacionalidad = Argentino|Sexo = Femenino",true);
+ 	var carlos    = new Cliente_Mayor("Carlos", "Fernandez", "5432524545", "|40 años|DNI = 17.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var jose      = new Cliente_Jubilado("Josa", "Gomez", "123324545", "|60 años|DNI = 8.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var facundo   = new Cliente_Menor("Facundo", "Hernandez", "862466754", "|15 años|DNI = 42.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var pablo     = new Cliente_Menor("Pablo", "Gimenez", "543252654", "|20 años|DNI = 37.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var pedrito   = new Cliente_MenorDe12("Pedrito", "Benitez", "4532524545", "|11 años|DNI = 47.897.364|Nacionalidad = Argentino|Sexo = Masculino",true);
+ 	var florencia = new Cliente_Mujer("Florencia", "Rodriguez", "734624545", "|19 años|DNI = 39.897.364|Nacionalidad = Argentino|Sexo = Femenino");
 
   @Test
   def cantidadDeButacasLibresTodasLasNoches() {

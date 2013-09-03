@@ -1,8 +1,6 @@
 
 
-class Cliente_Mujer(datosLegales:String, estaAcompaniado: Boolean) extends Cliente {
-	var _datosLegales: String = datosLegales;
-  
+class Cliente_Mujer(nombre: String, apellido: String, nroTarjeta: String, restoDatosLegales: String) extends Cliente(nombre, apellido, nroTarjeta, restoDatosLegales) {
 		
  override def dtoTipoPersona(precioBase:Double):Double = {
    if(SistemaVentas.descuentos.contains("mujeres"))
