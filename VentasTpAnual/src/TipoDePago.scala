@@ -8,7 +8,6 @@ abstract class TipoDePago {
 }
 
 class PagoEnEfectivo extends TipoDePago(){
-  
 	def comprar(unaEntrada:Entrada,cod: String): Boolean = {
 	    if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
 	      return false;
@@ -24,7 +23,7 @@ class PagoEnEfectivo extends TipoDePago(){
 class PagoConTarjeta() extends TipoDePago(){
   var _sisCobro: SistemaDeCobro = null
   
- override def comprar(unaEntrada:Entrada,cod:String) : Boolean = {
+ override def comprar(unaEntrada:Entrada) : Boolean = {
 	//usa la api
 	  
 		if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
@@ -33,7 +32,7 @@ class PagoConTarjeta() extends TipoDePago(){
 	     val nombreCliente = unaEntrada.cliente._apellido.+(", ").+(unaEntrada.cliente._nombre);
 	     val numeroTarjeta = unaEntrada.cliente._nroTarjeta;
 	     
-	    unaEntrada.realizarCompra(cod);
+	    unaEntrada.realizarCompra();
 	     
 	     try {
 	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);

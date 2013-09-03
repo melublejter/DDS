@@ -1,3 +1,4 @@
+
 	
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -7,7 +8,6 @@ import java.util.Calendar
 import org.junit.Assert._
 import java.lang.Object
 import sun.util.calendar.Gregorian
-
 
 
 class FestivalTests {
@@ -218,7 +218,7 @@ class FestivalTests {
 
     assertEquals(100.0 - 10.0 + 100.0, entrada.precioDeVenta, 0.0);
   }*/
-
+/*
   @Test
   def comprarYDevolverEntrada() {
     var pedido = new PedidoComun(noche1,butaca3_3A,pagoEfectivo);
@@ -229,7 +229,7 @@ class FestivalTests {
     assertEquals(105.0, precioDevuelto, 0.0);
 
   }
-	
+	*/
   /***************** PUNTO 1 - Venta en Combo ***********/
   
   @Test

@@ -1,7 +1,8 @@
 import java.util.Date
 
-class EntradaComun(tipoPago:TipoDePago) extends Entrada {
-  var tipoDePago: TipoDePago=tipoPago;
+class EntradaComun( uncliente: Cliente,unTipoCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca) extends Entrada(uncliente, unTipoCliente, unaNoche, unaButaca) {
+
+precioDeVenta=this.precioFinal();
 
 override def devolver(): Double ={
 		//Ver bien los return algo, no le preste atencion
@@ -32,16 +33,14 @@ override def anular() {
 
 
 override def comprar(cod: String = "")  {
-  
-  
-		  tipoDePago.comprar(this,cod)
+  		  tipoDePago.comprar(this,cod)
 
 }
 
  override def precioFinal(): Double = {
    var valorEntradaBase = butaca.precioBase();
    var valorExtraPorNoche = noche.valorExtra();
-   var descuentoTipoPersona = cliente.dtoTipoPersona(valorEntradaBase);
+   var descuentoTipoPersona = tipoCliente.dtoTipoPersona(valorEntradaBase);
    var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona;
    var dtoAnticipada = SistemaVentas.calcularDescuentoAnticipa(precio, noche);
    
