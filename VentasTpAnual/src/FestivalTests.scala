@@ -118,12 +118,12 @@ class FestivalTests {
  	SistemaVentas.noches = List[Noche](noche1,noche2,noche3,noche4,noche5);
  		
  	
- 	var carlos    = new Cliente_Mayor("Carlos", "Fernandez", "5432524545", "|40 años|DNI = 17.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var jose      = new Cliente_Jubilado("Josa", "Gomez", "123324545", "|60 años|DNI = 8.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var facundo   = new Cliente_Menor("Facundo", "Hernandez", "862466754", "|15 años|DNI = 42.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var pablo     = new Cliente_Menor("Pablo", "Gimenez", "543252654", "|20 años|DNI = 37.897.364|Nacionalidad = Argentino|Sexo = Masculino");
- 	var pedrito   = new Cliente_MenorDe12("Pedrito", "Benitez", "4532524545", "|11 años|DNI = 47.897.364|Nacionalidad = Argentino|Sexo = Masculino",true);
- 	var florencia = new Cliente_Mujer("Florencia", "Rodriguez", "734624545", "|19 años|DNI = 39.897.364|Nacionalidad = Argentino|Sexo = Femenino");
+ 	var carlos    = new Cliente_Mayor("Carlos", "Fernandez", "5432524545", "|40 anios|DNI = 17.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var jose      = new Cliente_Jubilado("Josa", "Gomez", "123324545", "|60 anios|DNI = 8.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var facundo   = new Cliente_Menor("Facundo", "Hernandez", "862466754", "|15 anios|DNI = 42.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var pablo     = new Cliente_Menor("Pablo", "Gimenez", "543252654", "|20 anios|DNI = 37.897.364|Nacionalidad = Argentino|Sexo = Masculino");
+ 	var pedrito   = new Cliente_MenorDe12("Pedrito", "Benitez", "4532524545", "|11 anios|DNI = 47.897.364|Nacionalidad = Argentino|Sexo = Masculino",true);
+ 	var florencia = new Cliente_Mujer("Florencia", "Rodriguez", "734624545", "|19 anios|DNI = 39.897.364|Nacionalidad = Argentino|Sexo = Femenino");
 
   @Test
   def cantidadDeButacasLibresTodasLasNoches() {
@@ -380,7 +380,7 @@ class FestivalTests {
 	  entradaValidaYNoConecta.comprar();
 	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
 	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
-	  //se cobra correctamente la entrada debería seguir vendida
+	  //se cobra correctamente la entrada deberï¿½a seguir vendida
 	  assert(SistemaVentas.entradasVendidas.contains(entradaValidaYNoConecta));
 	  assert(!noche1.butacasLibres.contains(entradaValidaYNoConecta.butaca));
 	  assertEquals(1,SistemaVentas.pagosPendientes.length);
@@ -395,7 +395,7 @@ class FestivalTests {
 	  entradaNoValidaYNoConecta.comprar();
 	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
 	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
-	  //se cobra correctamente la entrada debería seguir vendida
+	  //se cobra correctamente la entrada deberï¿½a seguir vendida
 	  assert(SistemaVentas.entradasVendidas.contains(entradaNoValidaYNoConecta));
 	  assert(!noche1.butacasLibres.contains(entradaNoValidaYNoConecta.butaca));
 	  assertEquals(1,SistemaVentas.pagosPendientes.length);

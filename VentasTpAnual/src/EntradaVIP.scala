@@ -35,11 +35,6 @@ override def anular() {
   	  }
   
 }
-  	
-override def comprar(cod: String = "") {
-  
-		//  tipoDePago.comprar(this,cod)
-  }
 
 
 override def precioFinal(): Double = {
@@ -63,7 +58,7 @@ override def precioFinal(): Double = {
   return total*1.5;
 }
   
-  override def realizarCompra(cod: String) {
+  override def comprar() {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
     	if  (SistemaVentas.entradasVendidas.==(this)){

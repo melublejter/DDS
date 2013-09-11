@@ -3,7 +3,7 @@ abstract class TipoCliente(){
 	def dtoTipoPersona(precioBase:Double) : Double;
 }
 
-class TipoCliente_MenorDe12Acompañado() extends TipoCliente() {
+class TipoCliente_MenorDe12Acompaniado() extends TipoCliente() {
 
 
 	override def dtoTipoPersona(precioBase:Double):Double = {
@@ -15,7 +15,7 @@ class TipoCliente_MenorDe12Acompañado() extends TipoCliente() {
 
 }
 
-class TipoCliente_MenorDe12NoAcompañado() extends TipoCliente() {
+class TipoCliente_MenorDe12NoAcompaniaado() extends TipoCliente() {
 
 	override def dtoTipoPersona(precioBase:Double):Double = {
 			return 0.0;

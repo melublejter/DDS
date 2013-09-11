@@ -1,4 +1,4 @@
-class PedidoVIP(unaButaca:Butaca,unTipoDePago:TipoDePago) extends Pedido  {
+/*class PedidoVIP(unaButaca:Butaca,unTipoDePago:TipoDePago) extends Pedido  {
 	 var _butaca:Butaca = unaButaca;
 	 var _noche:Noche = SistemaVentas.noches.head;
 	 var _tipoDePago:TipoDePago = unTipoDePago;
@@ -10,4 +10,4 @@ override def generarEntrada():Entrada={
 	  return entradaVIP;
 	  
 	}
-}
+}*/

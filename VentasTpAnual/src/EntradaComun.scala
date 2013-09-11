@@ -32,10 +32,6 @@ override def anular() {
   	  }  
 
 
-override def comprar(cod: String = "")  {
-  		  tipoDePago.comprar(this,cod)
-
-}
 
  override def precioFinal(): Double = {
    var valorEntradaBase = butaca.precioBase();
@@ -48,16 +44,12 @@ override def comprar(cod: String = "")  {
     
   }
   
-  override def realizarCompra(cod: String) {
+  override def comprar() {
     //No tendria que ser un lista contiene entrada? en vez de un "=="?
     //O tendria que sacarlo si lo verifico antes
-    if (butaca.codigo.!=(cod)){return}
-  			if  (SistemaVentas.entradasVendidas.==(this)){
-  				return;
-  			}
-  			noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
-  			SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
-  			this.imprimir();
+  	noche.butacasLibres= noche.butacasLibres.diff(List(butaca));
+  	SistemaVentas.entradasVendidas=SistemaVentas.entradasVendidas.+:(this);
+  	this.imprimir();
   	
   }
  

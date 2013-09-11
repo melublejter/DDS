@@ -24,11 +24,11 @@ object SistemaVentas {
 	}
 	
 	def entradasDeMujeresConDescVendidas(): Int ={
-	  entradasVendidas.filter(entrada =>(entrada.cliente.isInstanceOf[Cliente_Mujer])).length;
+	  entradasVendidas.filter(entrada =>(entrada.tipoCliente.isInstanceOf[TipoCliente_Mujer])).length;
 	  return 0;
 	}
 	
-		
+	/*	
 	def crearEntrada(unCliente: Cliente, unPedido: Pedido): Entrada = {
 	
 	   var ultNroFact:Int=0;
@@ -45,8 +45,10 @@ object SistemaVentas {
 	   
 	   return entrada;
 	}
-
-	 
+	*/
+	/*
+	 * (Confirmen si estÃ¡n de acuerdo)
+	 *   Creo que este mÃ©todo no deberÃ­a ir mas ya que ahora es responsabilidad del pedido
     def crearEntradas(unCliente: Cliente,pedidos: List[Pedido]): List[Entrada] = {
 		var entradas:List[Entrada]= List.empty[Entrada];
 		var costoTotal:Double =0;
@@ -67,8 +69,9 @@ object SistemaVentas {
 	    
 	   return entradas;
 	}
-	 
-		
+	 */
+	
+
 	def buscarEntradaVendida(unNroFactura: Int): Entrada = {
 	   var nro= unNroFactura
 	   return entradasVendidas.filter(e=>(e.nroFactura == nro)).head
@@ -95,13 +98,14 @@ object SistemaVentas {
 	 def precioFinal(entrada: Entrada): Double = {
 	   var valorEntradaBase = entrada.butaca.precioBase();
 	   var valorExtraPorNoche = entrada.noche.valorExtra();
-	   var descuentoTipoPersona = entrada.cliente.dtoTipoPersona(valorEntradaBase);
+	   var descuentoTipoPersona = entrada.tipoCliente.dtoTipoPersona(valorEntradaBase);
 	   var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona;
 	   var dtoAnticipada = this.calcularDescuentoAnticipa(precio, entrada.noche);
 	   
 	   return  precio - dtoAnticipada;
 	    
 	 }
+	 
 	 
 	 
 	 //Esta funcion no funciona bien, busque por internet y no funco ninguna.LUCAS
@@ -129,7 +133,7 @@ object SistemaVentas {
 	    
 	  }
 	  
-	  //Función cambia la categoria de una banda de forma dinámica
+	  //Funcion cambia la categoria de una banda de forma dinï¿½mica
 	  //Por ahora hice el test con un setter nomas, 
 	  //porque me daba error en el filter,
 	  //Parece que no encontrabaa a ninguno con ese nombre
@@ -160,7 +164,7 @@ object SistemaVentas {
 	  
 	  
 	    
-	    //final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+	    //final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al dï¿½a 
 	//		 var hoy = new Date(); //Fecha de hoy 
 	//     
 	//		  

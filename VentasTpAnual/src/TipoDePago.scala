@@ -4,15 +4,15 @@ import java.sql.Struct
 
 abstract class TipoDePago {
 
-	def comprar(unaEntrada:Entrada,cod:String): Boolean;
+	def comprar(unaEntrada:Entrada): Boolean;
 }
 
 class PagoEnEfectivo extends TipoDePago(){
-	def comprar(unaEntrada:Entrada,cod: String): Boolean = {
+	def comprar(unaEntrada:Entrada): Boolean = {
 	    if  (SistemaVentas.entradasVendidas.==(unaEntrada)){
 	      return false;
 	      }
-	    unaEntrada.realizarCompra(cod);
+	    unaEntrada.comprar();
 	    return true;
 	    
   }
@@ -32,7 +32,7 @@ class PagoConTarjeta() extends TipoDePago(){
 	     val nombreCliente = unaEntrada.cliente._apellido.+(", ").+(unaEntrada.cliente._nombre);
 	     val numeroTarjeta = unaEntrada.cliente._nroTarjeta;
 	     
-	    unaEntrada.realizarCompra();
+	    unaEntrada.comprar();
 	     
 	     try {
 	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);

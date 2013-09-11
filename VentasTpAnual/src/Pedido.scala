@@ -5,14 +5,14 @@ class Pedido(unCliente: Cliente, unTipoDePago:TipoDePago) {
 	
 
 		
-  def agregarEntradaComun(unTipoCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca, elCodigo: String): Boolean = {
+  def agregarEntradaComun(unTipoCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca, elCodigo: String=""): Boolean = {
       if (unaButaca.codigo.!=(elCodigo)){return false;}
 	  var entradaComun = new EntradaComun( _cliente, unTipoCliente, unaNoche, unaButaca);
 	  _entradas=_entradas.+:(entradaComun);
 	  return true;
 	}
 
-  def agregarEntradaVip(unTipoCliente: TipoCliente, unaButaca: Butaca, elCodigo: String): Boolean = {
+  def agregarEntradaVip(unTipoCliente: TipoCliente, unaButaca: Butaca, elCodigo: String=""): Boolean = {
     for(noche <- SistemaVentas.noches){
     	if (!noche.butacasLibres.contains(unaButaca)) {return false;} 
     }  
@@ -36,8 +36,11 @@ class Pedido(unCliente: Cliente, unTipoDePago:TipoDePago) {
     return acu;
   }
   
-  def comprar(): Boolean = {
-    //TODO
+  def comprar() {
+   for (entrada <- _entradas){
+     _tipoPago.comprar(entrada)
+     
+   }  
     
   }
   
