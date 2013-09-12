@@ -7,10 +7,13 @@ class Pedido(unCliente: Cliente, unTipoDePago:TipoDePago) {
 		
   def agregarEntradaComun(unTipoCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca, elCodigo: String=""): Boolean = {
       if (unaButaca.codigo.!=(elCodigo)){return false;}
-	  var entradaComun = new EntradaComun( _cliente, unTipoCliente, unaNoche, unaButaca);
+	  var entradaComun = new EntradaComun( _cliente, unTipoCliente, unaNoche, unaButaca)
+	  entradaComun.nroFactura = NroFactura.SacarNroFactura;
 	  _entradas=_entradas.+:(entradaComun);
 	  return true;
 	}
+  
+  
 
   def agregarEntradaVip(unTipoCliente: TipoCliente, unaButaca: Butaca, elCodigo: String=""): Boolean = {
     for(noche <- SistemaVentas.noches){
@@ -18,6 +21,7 @@ class Pedido(unCliente: Cliente, unTipoDePago:TipoDePago) {
     }  
     if (unaButaca.codigo.!=(elCodigo)){return false;}
 	var entradaVip = new EntradaVIP(_cliente, unTipoCliente, unaButaca);
+		entradaVip.nroFactura = NroFactura.SacarNroFactura;
 	  _entradas=_entradas.+:(entradaVip);
 	  return true;
   }

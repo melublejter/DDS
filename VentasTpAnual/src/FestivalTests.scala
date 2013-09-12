@@ -173,7 +173,7 @@ class FestivalTests {
 
   @Test
   def compraDeEntradaClienteMayorNoche1Butaca1() {
-    var pedido = new PedidoComun(noche1,butaca1_1A,pagoEfectivo);
+    var pedido = new Pedido(,pagoEfectivo);
     var entrada = SistemaVentas.crearEntrada(carlos,pedido);
     entrada.comprar();
 
