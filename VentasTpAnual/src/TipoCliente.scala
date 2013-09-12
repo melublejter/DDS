@@ -15,7 +15,7 @@ class TipoCliente_MenorDe12Acompaniado() extends TipoCliente() {
 
 }
 
-class TipoCliente_MenorDe12NoAcompaniaado() extends TipoCliente() {
+class TipoCliente_MenorDe12NoAcompaniado() extends TipoCliente() {
 
 	override def dtoTipoPersona(precioBase:Double):Double = {
 			return 0.0;
