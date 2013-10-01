@@ -337,66 +337,69 @@ class FestivalTests {
     SistemaVentas.agregarDescuento("jubilados");
   }
 	
-  /*Hay que cambiar estos tests porque ya no podemos acceder a la entrada para ver si esta contenida en el sistema
+  /*Hay que cambiar estos tests porque ya no podemos acceder a la entrada para ver si esta contenida en el sistema*/
   @Test
   def compraDeEntradaReservada_ClienteJubiladoNoche2Butaca6() {
     noche2.reservarButaca(butaca6_3B, "Codigo_de_Prueba");
     var pedido = new Pedido(jose,pagoEfectivo);
-    pedido.agregarEntradaComun(clienteJubilado,noche4,butaca21_3C);
-    pedido.comprar();
-    assert(!SistemaVentas.entradasVendidas.contains(entrada));
+    pedido.agregarEntradaComun(clienteJubilado,noche4,butaca6_3B);
+    assert(pedido._entradas.isEmpty);
+    
     pedido = new Pedido(jose,pagoEfectivo);
-    pedido.agregarEntradaComun(clienteJubilado,noche4,butaca21_3C,"");
+    pedido.agregarEntradaComun(clienteJubilado,noche4,butaca6_3B,"");
+    assert(pedido._entradas.isEmpty);
+  
+    pedido.agregarEntradaComun(clienteJubilado,noche4,butaca6_3B,"Codigo_de_Prueba");
     pedido.comprar();
-    var pedido = new PedidoComun(noche2,butaca6_3B,pagoEfectivo);
-    var entrada = SistemaVentas.crearEntrada(jose, pedido);
-    entrada.comprar();
-    entrada.comprar("");
-    entrada.comprar("otro Codigo");
-    assert(!SistemaVentas.entradasVendidas.contains(entrada));
-    entrada.comprar("Codigo_de_Prueba");
-    assert(SistemaVentas.entradasVendidas.contains(entrada));
-    assert(!noche2.butacasLibres.contains(entrada.butaca));
+    assert(SistemaVentas.entradasVendidas.contains(pedido._entradas.head));
+    assert(!noche2.butacasLibres.contains(pedido._entradas.head.butaca));
   }
   
   
     /***************** PUNTO 6 - Compra con tarjeta  ************/
  
-  
   @Test
   def impostorEstaConectadoYValida{
 	  var unImpostorValidaYConecta = new ImpostorSistemaDeCobro(true,true);
 	  pagoTarjeta._sisCobro = unImpostorValidaYConecta;
-	  var pedidoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
-	  var entradaValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYConecta);
-	  entradaValidaYConecta.comprar();
-	  assert(SistemaVentas.entradasVendidas.contains(entradaValidaYConecta));
-	  assert(!noche1.butacasLibres.contains(entradaValidaYConecta.butaca))
+	  var pedidoValidaYConecta = new Pedido(florencia, pagoTarjeta);
+	  pedidoValidaYConecta.agregarEntradaComun(clienteMujer, noche1, butaca20_3C)
+	  
+	  pedidoValidaYConecta.comprar();
+	  
+	  assert(SistemaVentas.entradasVendidas.contains(pedidoValidaYConecta._entradas.head));
+	  assert(!noche1.butacasLibres.contains(pedidoValidaYConecta._entradas.head.butaca))
   }
    
   @Test
   def impostorEstaConectadoYNoValida{
 	  var unImpostorNoValidaYConecta = new ImpostorSistemaDeCobro(true,false);
 	  pagoTarjeta._sisCobro = unImpostorNoValidaYConecta;
-	  var pedidoNoValidaYConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
-	  var entradaNoValidaYConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYConecta);
-	  entradaNoValidaYConecta.comprar();
-	  assert(!SistemaVentas.entradasVendidas.contains(entradaNoValidaYConecta));
-	  assert(noche1.butacasLibres.contains(entradaNoValidaYConecta.butaca))
+	  var pedidoNoValidaYConecta = new Pedido(florencia, pagoTarjeta);
+	  pedidoNoValidaYConecta.agregarEntradaComun(clienteMujer, noche1, butaca20_3C)
+	  
+	  pedidoNoValidaYConecta.comprar();
+	  
+	  assert(!SistemaVentas.entradasVendidas.contains(pedidoNoValidaYConecta._entradas.head));
+	  assert(noche1.butacasLibres.contains(pedidoNoValidaYConecta._entradas.head.butaca))
   }
 
   @Test
   def impostorEstaNoConectadoYValida{
 	  var unImpostorValidaYNoConecta = new ImpostorSistemaDeCobro(false,true);
 	  pagoTarjeta._sisCobro = unImpostorValidaYNoConecta;
-	  var pedidoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
-	  var entradaValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoValidaYNoConecta);
-	  entradaValidaYNoConecta.comprar();
+	  var pedidoValidaYNoConecta = new Pedido(florencia, pagoTarjeta);
+	  pedidoValidaYNoConecta.agregarEntradaComun(clienteMujer, noche1, butaca20_3C)
+	  
+	  pedidoValidaYNoConecta.comprar();
+	  
+	  assert(!SistemaVentas.entradasVendidas.contains(pedidoValidaYNoConecta._entradas.head));
+	  assert(!noche1.butacasLibres.contains(pedidoValidaYNoConecta._entradas.head.butaca))
+	  
 	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
 	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
-	  //se cobra correctamente la entrada deber�a seguir vendida
-	  assert(SistemaVentas.entradasVendidas.contains(entradaValidaYNoConecta));
-	  assert(!noche1.butacasLibres.contains(entradaValidaYNoConecta.butaca));
+	  //se cobra correctamente la entrada deberia seguir vendida
+	  
 	  assertEquals(1,SistemaVentas.pagosPendientes.length);
   }  
 
@@ -404,17 +407,16 @@ class FestivalTests {
   def impostorEstaNoConectadoYNoValida{
 	  var unImpostorNoValidaYNoConecta = new ImpostorSistemaDeCobro(false,false);
 	  pagoTarjeta._sisCobro = unImpostorNoValidaYNoConecta;
-	  var pedidoNoValidaYNoConecta = new PedidoComun(noche1,butaca20_3C,pagoTarjeta);
-	  var entradaNoValidaYNoConecta = SistemaVentas.crearEntrada(florencia, pedidoNoValidaYNoConecta);
-	  entradaNoValidaYNoConecta.comprar();
-	  //Si el usuario intenta pagar pero el servicio esta desconectado, se pone en un
-	  //lista de pendientes pero la entrada figura como comprada, esto es porque si luego
-	  //se cobra correctamente la entrada deber�a seguir vendida
-	  assert(SistemaVentas.entradasVendidas.contains(entradaNoValidaYNoConecta));
-	  assert(!noche1.butacasLibres.contains(entradaNoValidaYNoConecta.butaca));
+	   var pedidoNoValidaYNoConecta = new Pedido(florencia, pagoTarjeta);
+	  pedidoNoValidaYNoConecta.agregarEntradaComun(clienteMujer, noche1, butaca20_3C)
+	  
+	  pedidoNoValidaYNoConecta.comprar();
+	  
+	  assert(!SistemaVentas.entradasVendidas.contains(pedidoNoValidaYNoConecta._entradas.head));
+	  assert(!noche1.butacasLibres.contains(pedidoNoValidaYNoConecta._entradas.head.butaca))
+	  
 	  assertEquals(1,SistemaVentas.pagosPendientes.length);
   }
-  */
 }
 
 

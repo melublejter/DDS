@@ -38,7 +38,7 @@ class PagoConTarjeta() extends TipoDePago(){
 	    	 _sisCobro.cobrar(unaEntrada.precioDeVenta, nombreCliente, numeroTarjeta);
 	    	 return true;
 		   } catch {	
-				case e: DesconexionException => SistemaVentas.agregarPagoPendiente(new Pago(unaEntrada,nombreCliente,numeroTarjeta))
+				case e: DesconexionException =>{ SistemaVentas.agregarPagoPendiente(new Pago(unaEntrada,nombreCliente,numeroTarjeta));unaEntrada.anularVenta}
 				case e: ValidacionException =>  unaEntrada.anular()
 				  		//loguear venta no realizada o informar por pantalla
 			}

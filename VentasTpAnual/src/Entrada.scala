@@ -24,6 +24,10 @@ def comprar();
   
 def anular();
 
+def anularVenta(){
+  	SistemaVentas.entradasVendidas = SistemaVentas.entradasVendidas.filter(entrada=> entrada != this)
+}	//Saca la entrada de la lista de entradas vendidas
+
   def precioFinal(): Double; 
   
   def imprimir(){
