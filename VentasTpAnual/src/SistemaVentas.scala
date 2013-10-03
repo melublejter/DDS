@@ -1,4 +1,5 @@
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 import java.text.DateFormat
 import java.util.GregorianCalendar
 import java.util.Calendar
@@ -82,11 +83,9 @@ object SistemaVentas {
 	 
 	  
 	def calcularDescuentoAnticipa(precio: Double, noche: Noche): Double = {
-	   var hoy = new Date();
-	   var diffInDays =  diferenciasDeFechas(noche.fecha, hoy);
-	   
-	   	//println("diferencia de dias con la fecha=" + diffInDays );
-			 if (diffInDays > diasMinDescuentoAnticipada) {
+	   var hoy = DateTime.now();
+	   var diffInDays =  diferenciasDeFechas(hoy, noche.fecha);
+			 if (diffInDays < diasMinDescuentoAnticipada) {
 			   return precio*porcentajeDescuentoAnticipada;
 			 }
 			 else{
@@ -110,19 +109,7 @@ object SistemaVentas {
 	 
 	 //Esta funcion no funciona bien, busque por internet y no funco ninguna.LUCAS
 	 //FIXME
-	  def diferenciasDeFechas(fechaInicial:Date, fechaFinal:Date):Int = {
-	    var diff = new Date(fechaFinal.getTime() - fechaInicial.getTime());
-	
-	    var calendar = Calendar.getInstance();
-	    calendar.setTime(diff);
-	    var hours = calendar.get(Calendar.HOUR_OF_DAY);
-	    var minutes = calendar.get(Calendar.MINUTE);
-	    var seconds = calendar.get(Calendar.SECOND);
-	    var days = calendar.get(Calendar.DAY_OF_MONTH);
-	    return days
-	
-	    
-	  }
+	  def diferenciasDeFechas(fechaInicial:DateTime, fechaFinal:DateTime):Int = Days.daysBetween(fechaInicial, fechaFinal).getDays()
 	  
 	  //Funcion que realiza el cobro de todas los pagos pendientes
 	  //TODO Completar para que se pueda implementar los pagos luego de que queden pendientes
@@ -164,35 +151,6 @@ object SistemaVentas {
 	  
 	  
 	    
-	    //final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al d�a 
-	//		 var hoy = new Date(); //Fecha de hoy 
-	//     
-	//		  
-	//		 var calendar = new GregorianCalendar(fechaInicial.getYear(), 
-	//		     fechaInicial.getMonth()-1, fechaInicial.getDate()); 
-	//		 var fecha = new java.sql.Date(calendar.getTimeInMillis());
-	//		 
-	//		 var diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
-	//		 System.out.println(diferencia)
-	//    
-	    
-	/*
-	        var df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-	        var fechaInicioString = df.format(fechaInicial);
-	
-	        var fechaInicial2 = df.parse(fechaInicioString);
-	        var fechaFinalString = df.format(fechaFinal);
-	        var fechaFinal2 = df.parse(fechaFinalString);
-	        
-	
-	        var fechaInicialMs = fechaInicial2.getTime();
-	        var fechaFinalMs = fechaFinal2.getTime();
-	        var diferencia = fechaFinalMs - fechaInicialMs;
-	        var dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-	        return (dias.asInstanceOf[Int]);
-	        * 
-	        */
-	//    }
 	 
 	 
 }

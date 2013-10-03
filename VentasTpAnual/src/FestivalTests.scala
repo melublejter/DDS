@@ -3,7 +3,8 @@
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 import java.util.Calendar
 import org.junit.Assert._
 import java.lang.Object
@@ -109,11 +110,11 @@ class FestivalTests {
  	
  	
  	
- 	var noche1 = new Noche(new Date(2013,7,20),20,1,List[Banda](losPiojos),todasLasButacas);
- 	var noche2 = new Noche(new Date(2013,7,21),20,2,List[Banda](arbol),todasLasButacas);
- 	var noche3 = new Noche(new Date(2013,7,22),19,3,List[Banda](laVelaPuerca,NTVG),todasLasButacas);
- 	var noche4 = new Noche(new Date(2013,7,23),19,4,List[Banda](callejeros,rollingStone),todasLasButacas);
- 	var noche5 = new Noche(new Date(2013,7,24),21,5,List[Banda](losAutentiosDecadentes),todasLasButacas);
+ 	var noche1 = new Noche(new DateTime("2013-12-25"),20,1,List[Banda](losPiojos),todasLasButacas);
+ 	var noche2 = new Noche(new DateTime("2013-12-25"),20,2,List[Banda](arbol),todasLasButacas);
+ 	var noche3 = new Noche(new DateTime("2013-12-25"),19,3,List[Banda](laVelaPuerca,NTVG),todasLasButacas);
+ 	var noche4 = new Noche(new DateTime("2013-12-25"),19,4,List[Banda](callejeros,rollingStone),todasLasButacas);
+ 	var noche5 = new Noche(new DateTime("2013-10-25"),21,5,List[Banda](losAutentiosDecadentes),todasLasButacas);
  	
  	SistemaVentas.noches = List[Noche](noche1,noche2,noche3,noche4,noche5);
  	
@@ -225,26 +226,27 @@ class FestivalTests {
   //EN los siguientes Tests, hay problemas con las diferencias de fechas,
   //No lo pude arreglar. El segundo da VERDE, pero el primero no pasa
 
-/*  @Test
+ @Test
   def compraDeEntradaAnticipada_ClienteMayorNoche5Butaca5() {
-    var pedido = new PedidoComun(noche5,butaca5_2B,pagoEfectivo);
-    var entrada = SistemaVentas.crearEntrada(carlos, pedido);
-    entrada.comprar();
+    var pedido = new Pedido(carlos,pagoEfectivo);
+    pedido.agregarEntradaComun(clienteMayor,noche5, butaca5_2B);
+    pedido.comprar();
 
-    assertEquals(100.0 - 10.0 + 100.0, entrada.precioDeVenta, 0.0);
-  }*/
-/*
+    assertEquals(100.0 - 20.0 + 100.0, pedido._entradas.head.precioDeVenta, 0.0);
+  }
+
   @Test
   def comprarYDevolverEntrada() {
-    var pedido = new PedidoComun(noche1,butaca3_3A,pagoEfectivo);
-    var entrada = SistemaVentas.crearEntrada(carlos, pedido);
-    entrada.comprar();
-    assertEquals(210.0, entrada.precioDeVenta, 0.0);
-    var precioDevuelto = entrada.devolver
+var pedido = new Pedido(carlos,pagoEfectivo);
+    pedido.agregarEntradaComun(clienteMayor,noche1, butaca3_3A);
+    pedido.comprar();
+
+    assertEquals(210.0, pedido._entradas.head.precioDeVenta, 0.0);
+    var precioDevuelto = pedido._entradas.head.devolver()
     assertEquals(105.0, precioDevuelto, 0.0);
 
   }
-	*/
+	
   /***************** PUNTO 1 - Venta en Combo ***********/
   
   @Test
@@ -282,9 +284,9 @@ class FestivalTests {
     var pedido = new Pedido(carlos,pagoEfectivo);
     pedido.agregarEntradaVip(clienteMayor, butaca17_3C);
     pedido.comprar();
-    assertEquals(1275.0, pedido.precioAcumulado(), 0.0);
+    assertEquals(1249.5, pedido.precioAcumulado(), 0.0);
     //Si tenemos en cuenta que es mayor a 1000 y debemos aplicar el descuento queda menos dinero
-    assertEquals(1147.5,pedido.precioNeto(),0.0)
+    assertEquals(1124.55,pedido.precioNeto(),0.0)
   }
     
     

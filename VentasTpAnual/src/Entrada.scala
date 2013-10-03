@@ -1,4 +1,5 @@
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 import scala.collection.immutable.Nil
 import scala.util.control.Exception
 
@@ -10,7 +11,7 @@ abstract class Entrada( uncliente: Cliente, unTipoCliente: TipoCliente, unaNoche
 	var butaca: Butaca= unaButaca;
 	var nroFactura : Int=_;
 	var precioDeVenta: Double=_;
-	var fechaCompra: Date = new Date();
+	var fechaCompra: DateTime = DateTime.now();
 	var devuelta: Boolean = false;
 
 

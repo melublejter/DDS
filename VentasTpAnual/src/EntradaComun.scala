@@ -1,4 +1,5 @@
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 
 class EntradaComun( uncliente: Cliente,unTipoCliente: TipoCliente, unaNoche: Noche, unaButaca: Butaca) extends Entrada(uncliente, unTipoCliente, unaNoche, unaButaca) {
 
@@ -13,8 +14,8 @@ override def devolver(): Double ={
 			//NO encuentra la estrada en la lista de vendidas
 			return -2;
 		}
-  	  var hoy = new Date();
-	  if ((noche.fecha.getDate() -hoy.getDate()) > 10 ){
+  	  var hoy = DateTime.now();
+	  if (hoy.isAfter(noche.fecha.plusDays(10))){
 	    //No se puede devolver porque estamos en los ultimos 10 dias
 	    return -3;
 	    }
@@ -41,6 +42,7 @@ override def anular() {
    var descuentoTipoPersona = tipoCliente.dtoTipoPersona(valorEntradaBase);
    var precio = valorEntradaBase + valorExtraPorNoche - descuentoTipoPersona;
    var dtoAnticipada = SistemaVentas.calcularDescuentoAnticipa(precio, noche);
+   
    
    return  precio - dtoAnticipada;
     

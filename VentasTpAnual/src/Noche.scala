@@ -1,9 +1,10 @@
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 
-class Noche(unaFecha:Date,unaHora:Int, unId :Int,
+class Noche(unaFecha:DateTime,unaHora:Int, unId :Int,
     lasBandas:List[Banda],lasButacas:List[Butaca]) {
   
-	var fecha: Date = unaFecha;
+	var fecha: DateTime = unaFecha;
 	var horaInicio: Int = unaHora;
 	var bandas: List[Banda] = lasBandas;
 	var butacasLibres: List[Butaca] = lasButacas;

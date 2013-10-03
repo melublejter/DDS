@@ -1,4 +1,5 @@
-import java.util.Date
+import org.joda.time._
+import org.joda.convert._
 
 class EntradaVIP( uncliente: Cliente,unTipoCliente: TipoCliente, unaButaca: Butaca) extends Entrada(uncliente, unTipoCliente, null , unaButaca) {
   noche = SistemaVentas.noches.head;
@@ -13,9 +14,9 @@ override def devolver(): Double ={
 			//NO encuentra la estrada en la lista de vendidas
 			return -2;
 		}
-  	  var hoy = new Date();
+  	  var hoy = DateTime.now();
   	  var noche = SistemaVentas.noches.head;
-	  if ((noche.fecha.getDate() -hoy.getDate()) > 10 ){
+	  if (hoy.isAfter(noche.fecha.plusDays(10)) ){
 	    //No se puede devolver porque estamos en los ultimos 10 dias
 	    return -3;
 	    }
