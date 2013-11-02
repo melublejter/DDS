@@ -4,7 +4,8 @@ import ModelManager.getManager
 import java.util.List
 import javax.persistence.Query
 import model.Proyecto
-import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions._
+
 
 
 class HomeProyecto {
@@ -13,10 +14,11 @@ class HomeProyecto {
 		getManager().persist(unProyecto);
 	}
 
-	def all():List[Proyecto]= {
-	  var unaQuery:Query =_;
-		unaQuery = getManager().createQuery("from " + Proyecto.class.getSimpleName());
-		return query.getResultList();
+	def all():List[Proyecto] = {
+	 /* var unaQuery:Query=null;
+		unaQuery = getManager().createQuery("from " + classOf[Proyecto]/*.getSimpleName()*/);
+		return unaQuery.getResultList();*/
+	  getManager().createQuery("From Proyectos", classOf[Proyecto]).getResultList.toList
 	}
 
 }
