@@ -1,8 +1,9 @@
-package main.scala.persistence
+package persistence
 
 import ModelManager.getManager
 import javax.persistence.Query
 import model.Impuesto
+import scala.collection.JavaConversions._
 
 
 class HomeImpuesto {
@@ -11,9 +12,6 @@ class HomeImpuesto {
 	}
 	
 	def all():List[Impuesto] = {
-	 /* var unaQuery:Query=null;
-		unaQuery = getManager().createQuery("from " + classOf[Impuesto]/*.getSimpleName()*/);
-		return unaQuery.getResultList();*/
 	  getManager().createQuery("From Impuestos", classOf[Impuesto]).getResultList.toList
 	}
 }

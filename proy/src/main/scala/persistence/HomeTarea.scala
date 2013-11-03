@@ -1,4 +1,4 @@
-package main.scala.persistence
+package persistence
 
 import ModelManager.getManager
 import model.Tarea

@@ -1,4 +1,4 @@
-package main.scala.persistence;
+package persistence;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

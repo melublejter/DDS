@@ -1,13 +1,17 @@
 package model;
 
-import main.scala.persistence.PersistentObject
-import javax.persistence.Entity;
-import scala.collection.generic.Long
+import persistence.PersistentObject
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+//import scala.collection.generic.Long
 
 
 @Entity
 class Proyecto extends PersistentObject{
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue
     @Column(name = "id_proyecto")
     var id_proyecto:Long=_;
 	var tareas: List[Tarea] = List.empty[Tarea];

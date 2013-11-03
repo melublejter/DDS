@@ -1,4 +1,4 @@
-package main.scala.persistence
+package persistence
 
 import model.ComplejidadMinima
 import javax.persistence.Query
