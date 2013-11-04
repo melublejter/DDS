@@ -13,6 +13,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.IndexColumn;
 
+/*import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;*/
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 
 
@@ -25,12 +35,17 @@ class Tarea(_tiempo:Integer, _complejidad:ComplejidadMinima, _impuesto:List[Impu
     @Column(name = "id_tarea")
     var id_tarea:Long=_;
   	
-	var impuesto:List[Impuesto] = _impuesto;
-	var complejidad:ComplejidadMinima =_complejidad;
+	@Column//(name = "id_impuesto")
+    var impuesto:List[Impuesto] = _impuesto;
+	
+	@Column//(name = "id_tarea")
+    var complejidad:ComplejidadMinima =_complejidad;
+	
+	@Column
 	var tiempo: Integer=_tiempo;
 
-	@ManyToOne(mappedBy = "tareas")
-	var proyecto:Proyecto;
+	@ManyToOne
+	var id_proyecto:Long=_;
 	
 	
 	def obtenerCostoSinImpuesto():Double = {

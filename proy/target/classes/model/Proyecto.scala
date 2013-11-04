@@ -19,7 +19,7 @@ class Proyecto extends PersistentObject{
     var id_proyecto:Long=_;
 	
 	
-	@OneToMany
+	@OneToMany(mappedBy = "tareas")
 	var tareas: List[Tarea] = List.empty[Tarea];
 	
 	
