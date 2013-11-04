@@ -1,4 +1,12 @@
 package model;
+
+import persistence.PersistentObject
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+
+@Entity
 class TareaCompuesta(_tiempo:Integer, _complejidad:ComplejidadMinima, _impuesto:List[Impuesto]) extends Tarea(_tiempo, _complejidad, _impuesto){
 	var subTareas: List[Tarea] = List.empty[Tarea];
 	

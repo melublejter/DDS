@@ -1,6 +1,12 @@
 package model;
-class ComplejidadMaxima extends ComplejidadMinima{
+import persistence.PersistentObject
+import javax.persistence.Entity
 
+import javax.persistence.Column
+@Entity
+class ComplejidadMaxima extends ComplejidadMinima{
+  	
+  	nombre="Maxima"
   override def obtenerCosto(tiempo:Integer):Double ={
     if(tiempo<=10)
     	return (tiempo * 25)*1.07;

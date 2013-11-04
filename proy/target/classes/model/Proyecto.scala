@@ -14,7 +14,9 @@ class Proyecto extends PersistentObject{
 	@GeneratedValue
     @Column(name = "id_proyecto")
     var id_proyecto:Long=_;
+	
 	var tareas: List[Tarea] = List.empty[Tarea];
+	
 	
 	def obtenerTiempoTotal():Integer = {
 	  var _tiempo:Integer =0;
