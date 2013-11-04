@@ -5,6 +5,7 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
 
+
 @Entity
 class ComplejidadMinima extends PersistentObject{
   	@Id 

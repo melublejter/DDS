@@ -2,6 +2,8 @@ package model;
 import persistence.PersistentObject
 import javax.persistence.Entity
 import javax.persistence.Column
+
+
 @Entity
 class ComplejidadMedia extends ComplejidadMinima {
   	

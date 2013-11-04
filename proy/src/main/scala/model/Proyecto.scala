@@ -5,7 +5,10 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
-//import scala.collection.generic.Long
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -15,6 +18,8 @@ class Proyecto extends PersistentObject{
     @Column(name = "id_proyecto")
     var id_proyecto:Long=_;
 	
+	
+	@OneToMany
 	var tareas: List[Tarea] = List.empty[Tarea];
 	
 	

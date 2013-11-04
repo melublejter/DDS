@@ -1,8 +1,9 @@
 package model;
 import persistence.PersistentObject
 import javax.persistence.Entity
-
 import javax.persistence.Column
+
+
 @Entity
 class ComplejidadMaxima extends ComplejidadMinima{
   	

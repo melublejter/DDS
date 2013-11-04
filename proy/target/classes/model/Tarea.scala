@@ -6,6 +6,16 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.IndexColumn;
+
+
+
+
 @Entity
 class Tarea(_tiempo:Integer, _complejidad:ComplejidadMinima, _impuesto:List[Impuesto]) extends PersistentObject{
   //Es una singletable, falta poner con tareacompuesta con id_padre
@@ -19,6 +29,9 @@ class Tarea(_tiempo:Integer, _complejidad:ComplejidadMinima, _impuesto:List[Impu
 	var complejidad:ComplejidadMinima =_complejidad;
 	var tiempo: Integer=_tiempo;
 
+	@ManyToOne(mappedBy = "tareas")
+	var proyecto:Proyecto;
+	
 	
 	def obtenerCostoSinImpuesto():Double = {
 	  return complejidad.obtenerCosto(tiempo);

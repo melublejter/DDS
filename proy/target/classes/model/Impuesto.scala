@@ -5,16 +5,22 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 trait Impuesto extends PersistentObject{
-  //es una single table tambien porque seguardan todos los tipos de impuestos en una tabla el A y el B
-  	@Id 
+
+  @Id 
 	@GeneratedValue
     @Column(name = "id_impuesto")
     var id_impuesto:Long=_;
   
-	 var porcentaje:Double =_;
-	 def costoImpositivo(costoTareas:Double):Double;
+  	@Column
+	var porcentaje:Double =_;
+	 
+  	def costoImpositivo(costoTareas:Double):Double;
 
 }
