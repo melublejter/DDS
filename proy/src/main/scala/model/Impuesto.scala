@@ -7,20 +7,26 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorType
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-trait Impuesto extends PersistentObject{
+@DiscriminatorColumn(name = "TIPO_IMPUESTO", discriminatorType = DiscriminatorType.STRING)
+abstract class Impuesto extends PersistentObject{
 
-  @Id 
-	@GeneratedValue
-    @Column(name = "id_impuesto")
-    var id_impuesto:Long=_;
-  
-  	@Column
-	var porcentaje:Double =_;
-	 
-  	def costoImpositivo(costoTareas:Double):Double;
+    var id_impuesto: java.lang.Long =null
+  	var porcentaje:java.math.BigDecimal =null
+	
+
+  	@Id	@GeneratedValue def getId() = id_impuesto
+	def setId(_id_impuesto:Long) = id_impuesto = _id_impuesto
+	
+	@Column def getPorcentaje() = porcentaje
+	def setPorcentaje(_porcentaje : java.math.BigDecimal) = porcentaje = _porcentaje
+	
+  	
+  	def costoImpositivo(costoTareas:java.math.BigDecimal):java.math.BigDecimal;
 
 }

@@ -5,23 +5,36 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 
+//import javax.persistence.Inheritance
+import scala.collection.JavaConversions._
+import javax.persistence.OneToMany
+//import javax.persistence.InheritanceType
+import javax.persistence.FetchType
+import javax.persistence.CascadeType
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorValue
+import javax.persistence.DiscriminatorType
+
 
 @Entity
 class Proyecto extends PersistentObject{
-	@Id 
-	@GeneratedValue
-    @Column(name = "id_proyecto")
-    var id_proyecto:Long=_;
+  
+     var id_proyecto: java.lang.Long =null
+  	 var tareas: java.util.List[Tarea] = new java.util.ArrayList[Tarea]()
+  	 
+  @Id @GeneratedValue def getId() = id_proyecto
+  def setId(_id: Long) = id_proyecto = _id
+
 	
 	
-	@OneToMany(mappedBy = "tareas")
-	var tareas: List[Tarea] = List.empty[Tarea];
-	
+	@OneToMany(fetch = FetchType.LAZY, cascade = Array(CascadeType.ALL))
+	  def getTareas() = tareas
+	  def setTareas(_tareas: java.util.List[Tarea]) = tareas = _tareas
+
 	
 	def obtenerTiempoTotal():Integer = {
 	  var _tiempo:Integer =0;
@@ -30,10 +43,10 @@ class Proyecto extends PersistentObject{
 	  return _tiempo;
 	}
 	
-	def obtenerCostoTotal():Double = {
-	  var _costo:Double =0;
+	def obtenerCostoTotal():java.math.BigDecimal = {
+	  var _costo:java.math.BigDecimal =null;
 	  tareas.foreach
-	  	{ tarea => _costo=_costo + tarea.obtenerCostoConImpuesto() }
+	  	{ tarea => _costo=_costo.add(tarea.obtenerCostoConImpuesto())  }
 	  return _costo;
 	}
 	

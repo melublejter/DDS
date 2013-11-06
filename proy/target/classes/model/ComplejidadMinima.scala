@@ -1,28 +1,24 @@
 package model;
 import persistence.PersistentObject
 import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.GeneratedValue
-import javax.persistence.Column
-
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorValue
+import javax.persistence.DiscriminatorType
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TIPO_COMPLEJIDAD", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("MINIMA")
 class ComplejidadMinima extends PersistentObject{
-  	@Id 
-	@GeneratedValue
-    @Column(name = "id_complejidad")
-    var id_complejidad:Long=_;
-  	
- 
-    @Column(name="nombre")
-  	var nombre:String  = "Minima";
   	  
-  def obtenerCosto(tiempo:Integer):Double ={
-    return tiempo * 25;
+  def obtenerCosto(tiempo:Integer):java.math.BigDecimal ={
+    return new java.math.BigDecimal(tiempo*25);
   }
   
-  def diasMaximoAtraso(tiempo:Integer):Double ={
-    return 5;
+  def diasMaximoAtraso(tiempo:Integer):java.math.BigDecimal ={
+    return new java.math.BigDecimal(5);
   } 
-
+ 
 }

@@ -13,12 +13,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.IndexColumn;
 
-/*import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;*/
+import scala.collection.JavaConversions._
+import javax.persistence.FetchType
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,32 +26,35 @@ import org.hibernate.annotations.Type;
 @Entity
 class Tarea(_tiempo:Integer, _complejidad:ComplejidadMinima, _impuesto:List[Impuesto]) extends PersistentObject{
   //Es una singletable, falta poner con tareacompuesta con id_padre
-  
-  	@Id 
-	@GeneratedValue
-    @Column(name = "id_tarea")
-    var id_tarea:Long=_;
-  	
-	@Column//(name = "id_impuesto")
-    var impuesto:List[Impuesto] = _impuesto;
+	var id_tarea: java.lang.Long =null
+  	var impuestos: java.util.List[Impuesto] = new java.util.ArrayList[Impuesto]()
+  	var complejidad:ComplejidadMinima=null;
+	var tiempo: Integer=0;
 	
-	@Column//(name = "id_tarea")
-    var complejidad:ComplejidadMinima =_complejidad;
-	
-	@Column
-	var tiempo: Integer=_tiempo;
+  @Id @GeneratedValue def getId() = id_tarea
+  def setId(_id_tarea: Long) = id_tarea = _id_tarea
 
-	@ManyToOne
-	var id_proyecto:Long=_;
+  @OneToMany(fetch = FetchType.LAZY, cascade = Array(CascadeType.ALL))
+	  def getImpuestos() = impuestos
+	  def setImpuestos(_impuestos: java.util.List[Impuesto]) = impuestos = _impuestos
+
+  	
+	@Column def getComplejidad() = complejidad
+  def setId(_complejidad: ComplejidadMinima) = complejidad = _complejidad
+
 	
+	@Column def getTiempo() = tiempo
+  def setTiempo(_tiempo: Integer) = tiempo = _tiempo
+
+
 	
-	def obtenerCostoSinImpuesto():Double = {
+	def obtenerCostoSinImpuesto():java.math.BigDecimal = {
 	  return complejidad.obtenerCosto(tiempo);
 	}
 
-	def obtenerCostoConImpuesto():Double = {
-	  var _costo:Double=obtenerCostoSinImpuesto();
-	  impuesto.foreach
+	def obtenerCostoConImpuesto():java.math.BigDecimal = {
+	  var _costo:java.math.BigDecimal=obtenerCostoSinImpuesto();
+	  impuestos.foreach
 	  	{ unImpuesto => _costo= unImpuesto.costoImpositivo(_costo) }
 	   return _costo;
 	}

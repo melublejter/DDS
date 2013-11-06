@@ -2,12 +2,14 @@ package model;
 
 import persistence.PersistentObject
 import javax.persistence.Entity
+import javax.persistence.DiscriminatorValue
 
 @Entity
-class ImpuestoB(_porcentaje:Double) extends Impuesto{
-	porcentaje=_porcentaje;
+@DiscriminatorValue("B")
+class ImpuestoB extends Impuesto{
 	
-	def costoImpositivo(costoTareas:Double):Double = {
-	  return costoTareas*1.05;
+	
+	override def costoImpositivo(costoTareas:java.math.BigDecimal):java.math.BigDecimal = {
+	  return costoTareas.multiply(new java.math.BigDecimal(1.05));
 	}
 }
